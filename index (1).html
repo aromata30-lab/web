@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arómata S.A. — Sistema de Gestión</title>
+<style>
+  :root{
+    --crema:#F6F1E9;
+    --tinta:#2B2520;
+    --terracota:#B5562F;
+    --terracota-suave:#E8C9B8;
+    --verde:#4F6F52;
+    --linea:#D9CFC0;
+    --rojo:#A93226;
+    --blanco:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia', 'Iowan Old Style', serif;
+    background:var(--crema);
+    color:var(--tinta);
+  }
+  .utility{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;}
+
+  /* ===== LOGIN ===== */
+  #pantallaLogin{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:24px;
+  }
+  .marca{
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .marca .eyebrow{
+    font-family:inherit;
+    letter-spacing:.3em;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--terracota);
+  }
+  .marca h1{
+    font-size:48px;
+    margin:6px 0 0 0;
+    font-weight:400;
+    letter-spacing:.01em;
+  }
+  .tarjeta-login{
+    background:var(--blanco);
+    border:1px solid var(--linea);
+    padding:36px 32px;
+    width:100%;
+    max-width:380px;
+  }
+  .tarjeta-login label{
+    display:block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+    margin-top:18px;
+    font-family:inherit;
+  }
+  .tarjeta-login label:first-of-type{margin-top:0;}
+  select, input, textarea{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--linea);
+    background:var(--crema);
+    font-family:inherit;
+    font-size:15px;
+    color:var(--tinta);
+  }
+  select:focus, input:focus, textarea:focus{
+    outline:2px solid var(--terracota);
+    outline-offset:1px;
+  }
+  button{
+    cursor:pointer;
+    border:none;
+    font-family:inherit;
+  }
+  .boton-principal{
+    margin-top:26px;
+    width:100%;
+    background:var(--terracota);
+    color:var(--blanco);
+    padding:13px;
+    font-size:15px;
+    letter-spacing:.03em;
+  }
+  .boton-principal:hover{background:#9c4825;}
+  .error-login{
+    color:var(--rojo);
+    font-size:13px;
+    margin-top:14px;
+    display:none;
+  }
+
+  /* ===== APP ===== */
+  #app{display:none;min-height:100vh;}
+  header.appbar{
+    background:var(--tinta);
+    color:var(--crema);
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  header.appbar .titulo{
+    font-size:20px;
+  }
+  header.appbar .titulo span{color:var(--terracota-suave);}
+  .usuario-activo{
+    font-family:inherit;
+    font-size:13px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .usuario-activo button{
+    background:transparent;
+    color:var(--crema);
+    border:1px solid #6b6258;
+    padding:6px 12px;
+    font-size:12px;
+  }
+
+  nav.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    background:var(--blanco);
+    border-bottom:1px solid var(--linea);
+    padding:0 28px;
+  }
+  nav.tabs button{
+    background:transparent;
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--tinta);
+    border-bottom:3px solid transparent;
+    font-family:inherit;
+  }
+  nav.tabs button.activo{
+    border-bottom:3px solid var(--terracota);
+    color:var(--terracota);
+    font-weight:bold;
+  }
+
+  main{
+    padding:28px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .seccion{display:none;}
+  .seccion.activa{display:block;}
+  .seccion h2{
+    font-weight:400;
+    font-size:26px;
+    margin-bottom:4px;
+  }
+  .subtitulo{
+    font-family:inherit;
+    color:#7a7164;
+    margin-bottom:24px;
+    font-size:14px;
+  }
+
+  .panel{
+    background:var(--blanco);
+    border:1px solid var(--linea);
+    padding:24px;
+    margin-bottom:24px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 20px;
+  }
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  fieldset{
+    border:1px solid var(--linea);
+    margin-top:22px;
+    padding:14px 16px 18px 16px;
+  }
+  legend{
+    padding:0 6px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .archivo-campo{margin-top:12px;}
+  .archivo-campo label{
+    font-size:13px;
+    text-transform:none;
+    letter-spacing:0;
+    margin-top:0;
+    margin-bottom:5px;
+    color:#5c5346;
+  }
+  .obligatorio{color:var(--terracota);}
+
+  .acciones-form{
+    display:flex;
+    gap:12px;
+    margin-top:24px;
+  }
+  .boton-secundario{
+    background:transparent;
+    border:1px solid var(--tinta);
+    color:var(--tinta);
+    padding:12px 20px;
+  }
+
+  .mensaje{
+    margin-top:16px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:14px;
+    display:none;
+  }
+  .mensaje.exito{background:#E4ECE5;color:var(--verde);display:block;}
+  .mensaje.fallo{background:#F4DEDA;color:var(--rojo);display:block;}
+  .mensaje.cargando{background:var(--terracota-suave);color:var(--terracota);display:block;}
+
+  /* asiento propuesto */
+  .asiento-box{
+    background:var(--crema);
+    border:1px dashed var(--terracota);
+    padding:16px;
+    margin-top:18px;
+  }
+  .asiento-box h3{
+    font-size:14px;
+    margin:0 0 10px 0;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  table.asiento{
+    width:100%;
+    border-collapse:collapse;
+    font-family:inherit;
+    font-size:13px;
+  }
+  table.asiento th, table.asiento td{
+    text-align:left;
+    padding:6px 8px;
+    border-bottom:1px solid var(--linea);
+  }
+  table.asiento th{font-size:11px;text-transform:uppercase;color:#7a7164;}
+  table.asiento input{padding:6px 8px;font-size:13px;}
+
+  .tabla-lista{
+    width:100%;
+    border-collapse:collapse;
+    font-family:inherit;
+    font-size:13px;
+    background:var(--blanco);
+  }
+  .tabla-lista th, .tabla-lista td{
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1px solid var(--linea);
+  }
+  .tabla-lista th{
+    background:var(--crema);
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:.04em;
+  }
+  .etiqueta-estado{
+    padding:3px 9px;
+    font-size:11px;
+    border-radius:2px;
+  }
+  .estado-pendiente{background:var(--terracota-suave);color:var(--terracota);}
+  .estado-hecho{background:#E4ECE5;color:var(--verde);}
+
+  .vacio{
+    font-family:inherit;
+    color:#9a9082;
+    font-style:italic;
+    padding:20px 0;
+  }
+
+  small.ayuda{
+    display:block;
+    font-family:inherit;
+    font-size:12px;
+    color:#9a9082;
+    margin-top:4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="pantallaLogin">
+  <div class="marca">
+    <div class="eyebrow">Simulación Empresarial</div>
+    <h1>Arómata S.A.</h1>
+  </div>
+  <div class="tarjeta-login">
+    <label for="loginUsuario">Usuario</label>
+    <select id="loginUsuario">
+      <option value="">Elegí tu nombre</option>
+      <option value="Elian Mlecnik">Elian Mlecnik</option>
+      <option value="Augusto Ayrad">Augusto Ayrad</option>
+      <option value="Valentina Albarracin">Valentina Albarracin</option>
+      <option value="Rafaela Gabutti">Rafaela Gabutti</option>
+    </select>
+    <label for="loginClave">Contraseña</label>
+    <input type="password" id="loginClave" placeholder="••••">
+    <button class="boton-principal" onclick="intentarLogin()">Ingresar</button>
+    <div class="error-login" id="errorLogin">Usuario o contraseña incorrectos.</div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <header class="appbar">
+    <div class="titulo">Arómata <span>· Panel de gestión</span></div>
+    <div class="usuario-activo">
+      <span id="nombreUsuarioActivo"></span>
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn activo" data-tab="compras">Compras</button>
+    <button class="tab-btn" data-tab="ventas">Ventas</button>
+    <button class="tab-btn" data-tab="deudas">Deudas</button>
+    <button class="tab-btn" data-tab="pendientes">Pendientes</button>
+    <button class="tab-btn" data-tab="errores">Errores</button>
+  </nav>
+
+  <main>
+
+    <!-- ===== COMPRAS ===== -->
+    <section class="seccion activa" id="seccion-compras">
+      <h2>Registrar Compra</h2>
+      <div class="subtitulo">Se valida que la orden de compra no esté repetida, se suben los archivos a Drive y se carga la fila en el Excel de Compras.</div>
+
+      <div class="panel">
+        <form id="formCompras" onsubmit="return false;">
+          <div class="grid2">
+            <div>
+              <label>N° de Orden de Compra <span class="obligatorio">*</span></label>
+              <input type="text" id="c_numOperacion" placeholder="0000-0000" required>
+              <small class="ayuda">Formato: 4 dígitos - guion - 4 dígitos</small>
+            </div>
+            <div>
+              <label>Fecha <span class="obligatorio">*</span></label>
+              <input type="date" id="c_fecha" required>
+            </div>
+          </div>
+          <div class="grid2">
+            <div>
+              <label>Empresa proveedora <span class="obligatorio">*</span></label>
+              <select id="c_empresa" required>
+                <option value="">Elegí una empresa</option>
+                <option>GlowNest</option>
+                <option>Bloomderm</option>
+                <option>Glow</option>
+                <option>EUNOIA</option>
+                <option>NUMIA</option>
+              </select>
+            </div>
+            <div></div>
+          </div>
+
+          <fieldset>
+            <legend>Comprobantes</legend>
+            <div class="archivo-campo">
+              <label>Orden de Compra <span class="obligatorio">*</span></label>
+              <input type="file" id="c_archOrden" required>
+            </div>
+            <div class="archivo-campo">
+              <label>Factura / Nota de Crédito-Débito <span class="obligatorio">*</span></label>
+              <input type="file" id="c_archFactura" required>
+            </div>
+            <div class="archivo-campo">
+              <label>Recibo (opcional)</label>
+              <input type="file" id="c_archRecibo">
+            </div>
+            <div class="archivo-campo">
+              <label>Método de Pago / comprobante (opcional)</label>
+              <input type="file" id="c_archMetodoPago">
+            </div>
+            <div class="archivo-campo">
+              <label>Remito (opcional)</label>
+              <input type="file" id="c_archRemito">
+            </div>
+          </fieldset>
+
+          <div class="acciones-form">
+            <button type="button" class="boton-principal" style="width:auto;" onclick="confirmarYGuardarCompra()">Guardar operación</button>
+          </div>
+
+          <div class="mensaje" id="mensajeCompras"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== VENTAS ===== -->
+    <section class="seccion" id="seccion-ventas">
+      <h2>Registrar Venta</h2>
+      <div class="subtitulo">Se valida que el número de factura no esté repetido, se suben los archivos a Drive y se carga la fila en el Excel de Ventas.</div>
+
+      <div class="panel">
+        <form id="formVentas" onsubmit="return false;">
+          <div class="grid2">
+            <div>
+              <label>N° de Factura propia <span class="obligatorio">*</span></label>
+              <input type="text" id="v_numOperacion" placeholder="0001-0001" required>
+            </div>
+            <div>
+              <label>Fecha <span class="obligatorio">*</span></label>
+              <input type="date" id="v_fecha" required>
+            </div>
+          </div>
+          <div class="grid2">
+            <div>
+              <label>Empresa cliente <span class="obligatorio">*</span></label>
+              <select id="v_empresa" required>
+                <option value="">Elegí una empresa</option>
+                <option>GlowNest</option>
+                <option>Bloomderm</option>
+                <option>Glow</option>
+                <option>EUNOIA</option>
+                <option>NUMIA</option>
+              </select>
+            </div>
+            <div></div>
+          </div>
+
+          <fieldset>
+            <legend>Comprobantes</legend>
+            <div class="archivo-campo">
+              <label>Orden de Compra recibida (opcional)</label>
+              <input type="file" id="v_archOrden">
+            </div>
+            <div class="archivo-campo">
+              <label>Factura / Nota de Débito-Crédito <span class="obligatorio">*</span></label>
+              <input type="file" id="v_archFactura" required>
+            </div>
+            <div class="archivo-campo">
+              <label>Recibo (opcional)</label>
+              <input type="file" id="v_archRecibo">
+            </div>
+            <div class="archivo-campo">
+              <label>Método de Pago / comprobante (opcional)</label>
+              <input type="file" id="v_archMetodoPago">
+            </div>
+            <div class="archivo-campo">
+              <label>Remito (opcional)</label>
+              <input type="file" id="v_archRemito">
+            </div>
+          </fieldset>
+
+          <div class="acciones-form">
+            <button type="button" class="boton-principal" style="width:auto;" onclick="confirmarYGuardarVenta()">Guardar operación</button>
+          </div>
+
+          <div class="mensaje" id="mensajeVentas"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== DEUDAS ===== -->
+    <section class="seccion" id="seccion-deudas">
+      <h2>Deudas</h2>
+      <div class="subtitulo">Registro manual de lo que debemos y lo que nos deben.</div>
+      <div class="panel">
+        <div class="grid2">
+          <div>
+            <label>Empresa</label>
+            <select id="d_empresa">
+              <option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option>
+            </select>
+          </div>
+          <div>
+            <label>Tipo</label>
+            <select id="d_tipo">
+              <option value="Debemos">Debemos</option>
+              <option value="Nos deben">Nos deben</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <label>Importe</label>
+            <input type="number" id="d_importe" step="0.01">
+          </div>
+          <div>
+            <label>Vencimiento</label>
+            <input type="date" id="d_vencimiento">
+          </div>
+        </div>
+        <label>Detalle</label>
+        <input type="text" id="d_detalle" placeholder="Ej: Factura 0001-0009 pendiente de pago">
+        <div class="acciones-form">
+          <button class="boton-principal" style="width:auto;" onclick="guardarDeuda()">Guardar deuda</button>
+        </div>
+        <div class="mensaje" id="mensajeDeudas"></div>
+      </div>
+    </section>
+
+    <!-- ===== PENDIENTES ===== -->
+    <section class="seccion" id="seccion-pendientes">
+      <h2>Pendientes</h2>
+      <div class="subtitulo">Anotá tareas o cosas que faltan resolver.</div>
+      <div class="panel">
+        <label>Tarea</label>
+        <input type="text" id="p_tarea" placeholder="Ej: Cargar recibo de la operación 0001-0010">
+        <div class="acciones-form">
+          <button class="boton-principal" style="width:auto;" onclick="guardarPendiente()">Agregar pendiente</button>
+        </div>
+        <div class="mensaje" id="mensajePendientes"></div>
+      </div>
+    </section>
+
+    <!-- ===== ERRORES ===== -->
+    <section class="seccion" id="seccion-errores">
+      <h2>Errores</h2>
+      <div class="subtitulo">Reportá cualquier error o problema que encuentres en la página.</div>
+      <div class="panel">
+        <label>Módulo donde ocurrió</label>
+        <select id="e_modulo">
+          <option>Compras</option><option>Ventas</option><option>Deudas</option><option>Pendientes</option><option>Otro</option>
+        </select>
+        <label>Descripción del error</label>
+        <input type="text" id="e_descripcion" placeholder="Contá qué pasó">
+        <div class="acciones-form">
+          <button class="boton-principal" style="width:auto;" onclick="guardarError()">Reportar error</button>
+        </div>
+        <div class="mensaje" id="mensajeErrores"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN — pegá acá la URL de tu Web App de Apps Script
+// ============================================================
+const URL_BACKEND = "https://script.google.com/macros/s/AKfycby3RfzSufoLwNsGQqgfb0pPMuWVxca524OulUV77s1TG40yH2ukZVYuX3kADkMeyZHe/exec";
+
+const USUARIOS = {
+  "Elian Mlecnik": "1209",
+  "Augusto Ayrad": "1234",
+  "Valentina Albarracin": "0604",
+  "Rafaela Gabutti": "2401"
+};
+
+let usuarioActivo = null;
+
+// ---------- LOGIN ----------
+function intentarLogin(){
+  const usuario = document.getElementById('loginUsuario').value;
+  const clave = document.getElementById('loginClave').value;
+  const errorBox = document.getElementById('errorLogin');
+
+  if(!usuario || USUARIOS[usuario] !== clave){
+    errorBox.style.display = 'block';
+    return;
+  }
+  errorBox.style.display = 'none';
+  usuarioActivo = usuario;
+  document.getElementById('nombreUsuarioActivo').textContent = usuario;
+  document.getElementById('pantallaLogin').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}
+
+function cerrarSesion(){
+  usuarioActivo = null;
+  document.getElementById('loginClave').value = '';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('pantallaLogin').style.display = 'flex';
+}
+
+// ---------- TABS ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
+    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+    btn.classList.add('activo');
+    document.getElementById('seccion-' + btn.dataset.tab).classList.add('activa');
+  });
+});
+
+// ---------- HELPERS ----------
+function archivoABase64(inputFile){
+  return new Promise((resolve, reject) => {
+    if(!inputFile.files || !inputFile.files[0]){ resolve(null); return; }
+    const file = inputFile.files[0];
+    const reader = new FileReader();
+    reader.onload = () => resolve({ base64: reader.result, nombre: file.name });
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function mostrarMensaje(idMensaje, tipo, texto){
+  const el = document.getElementById(idMensaje);
+  el.className = 'mensaje ' + tipo;
+  el.textContent = texto;
+}
+
+async function enviarBackend(payload){
+  const resp = await fetch(URL_BACKEND, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+  return resp.json();
+}
+
+function formatearFechaArg(inputDate){
+  // input type=date llega como YYYY-MM-DD, lo pasamos a DD/MM/YYYY
+  if(!inputDate) return '';
+  const [y,m,d] = inputDate.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// ---------- COMPRAS ----------
+
+async function confirmarYGuardarCompra(){
+  const numOperacion = document.getElementById('c_numOperacion').value.trim();
+  const fechaInput = document.getElementById('c_fecha').value;
+  const empresa = document.getElementById('c_empresa').value;
+  const archOrden = document.getElementById('c_archOrden');
+  const archFactura = document.getElementById('c_archFactura');
+
+  if(!numOperacion || !fechaInput || !empresa || !archOrden.files[0] || !archFactura.files[0]){
+    mostrarMensaje('mensajeCompras','fallo','Completá los campos obligatorios (*) antes de guardar.');
+    return;
+  }
+
+  mostrarMensaje('mensajeCompras','cargando','Subiendo archivos y guardando la operación, esperá un momento...');
+
+  const fecha = formatearFechaArg(fechaInput);
+
+  const archivoOrdenCompra = await archivoABase64(document.getElementById('c_archOrden'));
+  const archivoFactura = await archivoABase64(document.getElementById('c_archFactura'));
+  const archivoRecibo = await archivoABase64(document.getElementById('c_archRecibo'));
+  const archivoMetodoPago = await archivoABase64(document.getElementById('c_archMetodoPago'));
+  const archivoRemito = await archivoABase64(document.getElementById('c_archRemito'));
+
+  const payload = {
+    tipo: "compra",
+    usuario: usuarioActivo,
+    numeroOperacion: numOperacion,
+    fecha: fecha,
+    empresa: empresa,
+    archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito
+  };
+
+  try{
+    const resultado = await enviarBackend(payload);
+    if(resultado.exito){
+      mostrarMensaje('mensajeCompras','exito','✓ ' + resultado.mensaje);
+      document.getElementById('formCompras').reset();
+    } else {
+      mostrarMensaje('mensajeCompras','fallo','✗ ' + resultado.mensaje);
+    }
+  } catch(err){
+    mostrarMensaje('mensajeCompras','fallo','✗ Error de conexión: ' + err.toString());
+  }
+}
+
+// ---------- VENTAS ----------
+
+async function confirmarYGuardarVenta(){
+  const numOperacion = document.getElementById('v_numOperacion').value.trim();
+  const fechaInput = document.getElementById('v_fecha').value;
+  const empresa = document.getElementById('v_empresa').value;
+  const archFactura = document.getElementById('v_archFactura');
+
+  if(!numOperacion || !fechaInput || !empresa || !archFactura.files[0]){
+    mostrarMensaje('mensajeVentas','fallo','Completá los campos obligatorios (*) antes de guardar.');
+    return;
+  }
+
+  mostrarMensaje('mensajeVentas','cargando','Subiendo archivos y guardando la operación, esperá un momento...');
+
+  const fecha = formatearFechaArg(fechaInput);
+
+  const archivoOrdenCompra = await archivoABase64(document.getElementById('v_archOrden'));
+  const archivoFactura = await archivoABase64(document.getElementById('v_archFactura'));
+  const archivoRecibo = await archivoABase64(document.getElementById('v_archRecibo'));
+  const archivoMetodoPago = await archivoABase64(document.getElementById('v_archMetodoPago'));
+  const archivoRemito = await archivoABase64(document.getElementById('v_archRemito'));
+
+  const payload = {
+    tipo: "venta",
+    usuario: usuarioActivo,
+    numeroOperacion: numOperacion,
+    fecha: fecha,
+    empresa: empresa,
+    archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito
+  };
+
+  try{
+    const resultado = await enviarBackend(payload);
+    if(resultado.exito){
+      mostrarMensaje('mensajeVentas','exito','✓ ' + resultado.mensaje);
+      document.getElementById('formVentas').reset();
+    } else {
+      mostrarMensaje('mensajeVentas','fallo','✗ ' + resultado.mensaje);
+    }
+  } catch(err){
+    mostrarMensaje('mensajeVentas','fallo','✗ Error de conexión: ' + err.toString());
+  }
+}
+
+// ---------- DEUDAS / PENDIENTES / ERRORES (módulos simples, van directo al backend) ----------
+async function guardarDeuda(){
+  const payload = {
+    tipo: "deuda",
+    usuario: usuarioActivo,
+    empresa: document.getElementById('d_empresa').value,
+    tipoDeuda: document.getElementById('d_tipo').value,
+    importe: document.getElementById('d_importe').value,
+    vencimiento: formatearFechaArg(document.getElementById('d_vencimiento').value),
+    detalle: document.getElementById('d_detalle').value
+  };
+  mostrarMensaje('mensajeDeudas','cargando','Guardando...');
+  try{
+    const r = await enviarBackend(payload);
+    mostrarMensaje('mensajeDeudas', r.exito ? 'exito':'fallo', r.exito ? '✓ '+r.mensaje : '✗ '+r.mensaje);
+  }catch(err){ mostrarMensaje('mensajeDeudas','fallo','✗ Error: '+err.toString()); }
+}
+
+async function guardarPendiente(){
+  const payload = {
+    tipo: "pendiente",
+    usuario: usuarioActivo,
+    tarea: document.getElementById('p_tarea').value
+  };
+  mostrarMensaje('mensajePendientes','cargando','Guardando...');
+  try{
+    const r = await enviarBackend(payload);
+    mostrarMensaje('mensajePendientes', r.exito ? 'exito':'fallo', r.exito ? '✓ '+r.mensaje : '✗ '+r.mensaje);
+  }catch(err){ mostrarMensaje('mensajePendientes','fallo','✗ Error: '+err.toString()); }
+}
+
+async function guardarError(){
+  const payload = {
+    tipo: "error",
+    usuario: usuarioActivo,
+    modulo: document.getElementById('e_modulo').value,
+    descripcion: document.getElementById('e_descripcion').value
+  };
+  mostrarMensaje('mensajeErrores','cargando','Guardando...');
+  try{
+    const r = await enviarBackend(payload);
+    mostrarMensaje('mensajeErrores', r.exito ? 'exito':'fallo', r.exito ? '✓ '+r.mensaje : '✗ '+r.mensaje);
+  }catch(err){ mostrarMensaje('mensajeErrores','fallo','✗ Error: '+err.toString()); }
+}
+</script>
+</body>
+</html>
