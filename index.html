@@ -13,7 +13,21 @@
     --verde:#4F6F52;
     --linea:#D9CFC0;
     --rojo:#A93226;
+    --amarillo:#C9962B;
     --blanco:#FFFFFF;
+    --panel-bg:#FFFFFF;
+  }
+  [data-tema="oscuro"]{
+    --crema:#1E1A16;
+    --tinta:#F0EAE0;
+    --terracota:#E08358;
+    --terracota-suave:#4A3528;
+    --verde:#7FA983;
+    --linea:#3D362C;
+    --rojo:#E07A6C;
+    --amarillo:#D9B25C;
+    --blanco:#27221C;
+    --panel-bg:#27221C;
   }
   *{box-sizing:border-box;}
   body{
@@ -21,288 +35,194 @@
     font-family:'Georgia', 'Iowan Old Style', serif;
     background:var(--crema);
     color:var(--tinta);
+    transition:background .2s, color .2s;
   }
   .utility{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;}
 
   /* ===== LOGIN ===== */
-  #pantallaLogin{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    padding:24px;
-  }
+  #pantallaLogin{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;}
   .marca{text-align:center;margin-bottom:36px;}
-  .marca .eyebrow{
-    font-family:inherit;
-    letter-spacing:.3em;
-    font-size:11px;
-    text-transform:uppercase;
-    color:var(--terracota);
-  }
+  .marca .eyebrow{font-family:inherit;letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:var(--terracota);}
   .marca h1{font-size:48px;margin:6px 0 0 0;font-weight:400;}
-  .tarjeta-login{
-    background:var(--blanco);
-    border:1px solid var(--linea);
-    padding:36px 32px;
-    width:100%;
-    max-width:380px;
-  }
-  .tarjeta-login label{
-    display:block;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    margin-bottom:6px;
-    margin-top:18px;
-    font-family:inherit;
-  }
+  .tarjeta-login{background:var(--blanco);border:1px solid var(--linea);padding:36px 32px;width:100%;max-width:380px;}
+  .tarjeta-login label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;margin-top:18px;font-family:inherit;}
   .tarjeta-login label:first-of-type{margin-top:0;}
   select, input, textarea{
-    width:100%;
-    padding:11px 12px;
-    border:1px solid var(--linea);
-    background:var(--crema);
-    font-family:inherit;
-    font-size:15px;
-    color:var(--tinta);
+    width:100%;padding:11px 12px;border:1px solid var(--linea);background:var(--crema);
+    font-family:inherit;font-size:15px;color:var(--tinta);
   }
-  select:focus, input:focus, textarea:focus{
-    outline:2px solid var(--terracota);
-    outline-offset:1px;
-  }
+  select:focus, input:focus, textarea:focus{outline:2px solid var(--terracota);outline-offset:1px;}
   button{cursor:pointer;border:none;font-family:inherit;}
-  .boton-principal{
-    margin-top:26px;
-    width:100%;
-    background:var(--terracota);
-    color:var(--blanco);
-    padding:13px;
-    font-size:15px;
-  }
-  .boton-principal:hover{background:#9c4825;}
+  .boton-principal{margin-top:26px;width:100%;background:var(--terracota);color:#fff;padding:13px;font-size:15px;}
+  .boton-principal:hover{opacity:.9;}
   .error-login{color:var(--rojo);font-size:13px;margin-top:14px;display:none;}
 
   /* ===== APP ===== */
   #app{display:none;min-height:100vh;}
   header.appbar{
-    background:var(--tinta);
-    color:var(--crema);
-    padding:16px 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    background:var(--tinta);color:var(--crema);padding:14px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
-  header.appbar .titulo{font-size:20px;}
+  [data-tema="oscuro"] header.appbar{background:#100D0A;}
+  header.appbar .titulo{font-size:20px;white-space:nowrap;}
   header.appbar .titulo span{color:var(--terracota-suave);}
-  .usuario-activo{
-    font-family:inherit;
-    font-size:13px;
-    display:flex;
-    gap:14px;
-    align-items:center;
-  }
-  .usuario-activo button{
-    background:transparent;
-    color:var(--crema);
-    border:1px solid #6b6258;
-    padding:6px 12px;
-    font-size:12px;
-  }
 
-  nav.tabs{
-    display:flex;
-    flex-wrap:wrap;
-    background:var(--blanco);
-    border-bottom:1px solid var(--linea);
-    padding:0 28px;
+  .buscador-global-cont{position:relative;flex:1;max-width:420px;min-width:200px;}
+  .buscador-global-cont input{
+    width:100%;padding:9px 12px;border:1px solid #555;background:#3a342c;color:#fff;font-size:13px;font-family:inherit;
   }
+  .resultados-busqueda-global{
+    position:absolute;top:38px;left:0;right:0;background:var(--blanco);color:var(--tinta);
+    border:1px solid var(--linea);max-height:420px;overflow-y:auto;z-index:50;display:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.2);
+  }
+  .resultados-busqueda-global .grupo-resultado{padding:8px 14px;}
+  .resultados-busqueda-global .grupo-resultado h4{
+    font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--terracota);margin:8px 0 4px 0;font-family:inherit;
+  }
+  .resultados-busqueda-global .item-resultado{
+    padding:7px 4px;font-size:13px;font-family:inherit;border-bottom:1px solid var(--linea);cursor:pointer;
+  }
+  .resultados-busqueda-global .item-resultado:hover{background:var(--crema);}
+
+  .iconos-derecha{display:flex;align-items:center;gap:14px;}
+  .boton-icono{
+    background:transparent;color:var(--crema);border:1px solid #6b6258;padding:7px 10px;font-size:16px;position:relative;
+  }
+  .badge-notif{
+    position:absolute;top:-6px;right:-6px;background:var(--rojo);color:#fff;
+    font-size:10px;border-radius:50%;width:17px;height:17px;display:flex;align-items:center;justify-content:center;font-family:inherit;
+  }
+  .usuario-activo{font-family:inherit;font-size:13px;display:flex;gap:10px;align-items:center;white-space:nowrap;}
+  .usuario-activo button{background:transparent;color:var(--crema);border:1px solid #6b6258;padding:6px 12px;font-size:12px;}
+
+  .panel-notificaciones{
+    position:absolute;top:54px;right:28px;width:340px;max-height:440px;overflow-y:auto;
+    background:var(--blanco);color:var(--tinta);border:1px solid var(--linea);z-index:60;display:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+  }
+  .panel-notificaciones .encabezado-notif{
+    padding:12px 14px;border-bottom:1px solid var(--linea);display:flex;justify-content:space-between;align-items:center;font-family:inherit;font-size:13px;
+  }
+  .item-notificacion{
+    padding:10px 14px;border-bottom:1px solid var(--linea);font-family:inherit;font-size:12.5px;cursor:pointer;
+  }
+  .item-notificacion.no-leida{background:var(--terracota-suave);}
+  .item-notificacion .cuando{font-size:11px;color:#9a9082;margin-top:3px;}
+
+  nav.tabs{display:flex;flex-wrap:wrap;background:var(--blanco);border-bottom:1px solid var(--linea);padding:0 28px;}
   nav.tabs button{
-    background:transparent;
-    padding:14px 16px;
-    font-size:13px;
-    color:var(--tinta);
-    border-bottom:3px solid transparent;
-    font-family:inherit;
+    background:transparent;padding:14px 14px;font-size:12.5px;color:var(--tinta);
+    border-bottom:3px solid transparent;font-family:inherit;white-space:nowrap;
   }
-  nav.tabs button.activo{
-    border-bottom:3px solid var(--terracota);
-    color:var(--terracota);
-    font-weight:bold;
-  }
+  nav.tabs button.activo{border-bottom:3px solid var(--terracota);color:var(--terracota);font-weight:bold;}
 
-  main{padding:28px;max-width:1000px;margin:0 auto;}
+  main{padding:28px;max-width:1050px;margin:0 auto;}
   .seccion{display:none;}
   .seccion.activa{display:block;}
   .seccion h2{font-weight:400;font-size:26px;margin-bottom:4px;}
-  .subtitulo{font-family:inherit;color:#7a7164;margin-bottom:24px;font-size:14px;}
+  .subtitulo{font-family:inherit;color:#9a9082;margin-bottom:24px;font-size:14px;}
 
-  .panel{
-    background:var(--blanco);
-    border:1px solid var(--linea);
-    padding:24px;
-    margin-bottom:24px;
-  }
+  .panel{background:var(--panel-bg);border:1px solid var(--linea);padding:24px;margin-bottom:24px;}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;}
   .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;}
-  @media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0 16px;}
+  @media(max-width:760px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}}
 
   fieldset{border:1px solid var(--linea);margin-top:22px;padding:14px 16px 18px 16px;}
   legend{padding:0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;}
   .archivo-campo{margin-top:12px;}
-  .archivo-campo label{
-    font-size:13px;text-transform:none;letter-spacing:0;
-    margin-top:0;margin-bottom:5px;color:#5c5346;
-  }
+  .archivo-campo label{font-size:13px;text-transform:none;letter-spacing:0;margin-top:0;margin-bottom:5px;color:#9a9082;}
   .obligatorio{color:var(--terracota);}
 
   .acciones-form{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
-  .boton-secundario{
-    background:transparent;border:1px solid var(--tinta);
-    color:var(--tinta);padding:12px 20px;
-  }
-  .boton-peligro{
-    background:transparent;border:1px solid var(--rojo);
-    color:var(--rojo);padding:12px 20px;
-  }
-  .boton-chico{
-    padding:6px 12px;font-size:12px;
-    background:var(--terracota);color:var(--blanco);
-  }
-  .boton-chico.secundario{
-    background:transparent;border:1px solid var(--linea);color:var(--tinta);
-  }
+  .boton-secundario{background:transparent;border:1px solid var(--tinta);color:var(--tinta);padding:12px 20px;}
+  .boton-peligro{background:transparent;border:1px solid var(--rojo);color:var(--rojo);padding:12px 20px;}
+  .boton-chico{padding:6px 12px;font-size:12px;background:var(--terracota);color:#fff;}
+  .boton-chico.secundario{background:transparent;border:1px solid var(--linea);color:var(--tinta);}
 
   .mensaje{margin-top:16px;padding:12px 14px;font-family:inherit;font-size:14px;display:none;}
   .mensaje.exito{background:#E4ECE5;color:var(--verde);display:block;}
   .mensaje.fallo{background:#F4DEDA;color:var(--rojo);display:block;}
   .mensaje.cargando{background:var(--terracota-suave);color:var(--terracota);display:block;}
-  .mensaje.aviso{background:#FFF3CD;color:#8a6d1d;display:block;}
+  [data-tema="oscuro"] .mensaje.exito{background:#1f2e21;}
+  [data-tema="oscuro"] .mensaje.fallo{background:#3a201c;}
 
-  .tabla-lista{width:100%;border-collapse:collapse;font-family:inherit;font-size:13px;background:var(--blanco);}
+  .tabla-lista{width:100%;border-collapse:collapse;font-family:inherit;font-size:13px;background:var(--panel-bg);}
   .tabla-lista th, .tabla-lista td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linea);}
   .tabla-lista th{background:var(--crema);text-transform:uppercase;font-size:11px;letter-spacing:.04em;}
   .tabla-lista a{color:var(--terracota);}
-  .tabla-lista tr:hover{background:#FBF8F3;}
 
   .etiqueta-estado{padding:3px 9px;font-size:11px;border-radius:2px;font-family:inherit;}
   .estado-pendiente{background:var(--terracota-suave);color:var(--terracota);}
   .estado-hecho{background:#E4ECE5;color:var(--verde);}
+  [data-tema="oscuro"] .estado-hecho{background:#1f2e21;}
 
   .vacio{font-family:inherit;color:#9a9082;font-style:italic;padding:20px 0;}
-
   small.ayuda{display:block;font-family:inherit;font-size:12px;color:#9a9082;margin-top:4px;}
 
-  .caja-empresa-mail{
-    border:1px solid var(--linea);
-    padding:16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
-    font-family:inherit;
-  }
+  .resultado-busqueda{background:var(--crema);border:1px dashed var(--terracota);padding:18px;margin-top:18px;}
 
-  .item-actividad{
-    padding:10px 0;
-    border-bottom:1px solid var(--linea);
-    font-family:inherit;
-    font-size:13px;
+  /* ===== HOME ===== */
+  .home-encabezado{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px;}
+  .home-fecha{font-family:inherit;}
+  .home-fecha .dia{font-size:15px;text-transform:capitalize;color:#9a9082;}
+  .home-fecha .hora{font-size:34px;color:var(--terracota);}
+  .home-resumen{display:flex;gap:14px;flex-wrap:wrap;}
+  .chip-resumen{background:var(--panel-bg);border:1px solid var(--linea);padding:10px 16px;font-family:inherit;font-size:13px;text-align:center;min-width:110px;}
+  .chip-resumen .num{font-size:24px;color:var(--terracota);display:block;font-family:Georgia, serif;}
+
+  .grilla-botones{display:grid;grid-template-columns:repeat(4, 1fr);gap:16px;margin-bottom:24px;}
+  @media(max-width:760px){.grilla-botones{grid-template-columns:repeat(2, 1fr);}}
+  .boton-home{background:var(--panel-bg);border:1px solid var(--linea);padding:22px 16px;text-align:center;cursor:pointer;font-family:inherit;color:var(--tinta);transition:border-color .15s, transform .1s;}
+  .boton-home:hover{border-color:var(--terracota);transform:translateY(-2px);}
+  .boton-home .icono{font-size:30px;display:block;margin-bottom:8px;}
+  .boton-home .etiqueta{font-size:13px;letter-spacing:.02em;}
+
+  .panel-titulo-home{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:#9a9082;margin-bottom:14px;font-family:inherit;}
+
+  .tarjeta-frase{
+    background:linear-gradient(135deg, var(--terracota), #8c3d1f);
+    color:#fff;padding:22px 26px;margin-bottom:24px;font-family:inherit;
   }
+  .tarjeta-frase .etiqueta-frase{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;margin-bottom:6px;}
+  .tarjeta-frase .texto-frase{font-size:18px;font-family:Georgia, serif;font-style:italic;}
+
+  .fila-vencimiento{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-left:5px solid var(--linea);margin-bottom:8px;font-family:inherit;font-size:13px;background:var(--crema);}
+  .fila-vencimiento.verde{border-left-color:var(--verde);}
+  .fila-vencimiento.amarillo{border-left-color:var(--amarillo);}
+  .fila-vencimiento.rojo{border-left-color:var(--rojo);}
+  .fila-vencimiento .dias-restantes{font-weight:bold;}
+  .fila-vencimiento.verde .dias-restantes{color:var(--verde);}
+  .fila-vencimiento.amarillo .dias-restantes{color:var(--amarillo);}
+  .fila-vencimiento.rojo .dias-restantes{color:var(--rojo);}
+
+  .item-actividad{padding:10px 0;border-bottom:1px solid var(--linea);font-family:inherit;font-size:13px;}
   .item-actividad .quien{font-weight:bold;color:var(--terracota);}
   .item-actividad .cuando{color:#9a9082;font-size:11px;}
 
-  .resultado-busqueda{
-    background:var(--crema);
-    border:1px dashed var(--terracota);
-    padding:18px;
-    margin-top:18px;
-  }
+  /* progreso formulario */
+  .progreso-cont{margin:18px 0;font-family:inherit;}
+  .barra-progreso-ext{background:var(--linea);height:10px;width:100%;overflow:hidden;}
+  .barra-progreso-int{background:var(--terracota);height:100%;width:0%;transition:width .25s;}
+  .progreso-texto{display:flex;justify-content:space-between;font-size:12px;margin-top:6px;color:#9a9082;}
+  .progreso-texto .estado-texto{font-weight:bold;color:var(--terracota);}
 
-  /* ===== HOME ===== */
-  .home-encabezado{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    flex-wrap:wrap;
-    gap:16px;
-    margin-bottom:28px;
-  }
-  .home-fecha{
-    font-family:inherit;
-  }
-  .home-fecha .dia{
-    font-size:15px;
-    text-transform:capitalize;
-    color:#7a7164;
-  }
-  .home-fecha .hora{
-    font-size:34px;
-    color:var(--terracota);
-  }
-  .home-resumen{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-  .chip-resumen{
-    background:var(--blanco);
-    border:1px solid var(--linea);
-    padding:10px 16px;
-    font-family:inherit;
-    font-size:13px;
-    text-align:center;
-    min-width:110px;
-  }
-  .chip-resumen .num{
-    font-size:24px;
-    color:var(--terracota);
-    display:block;
-    font-family:Georgia, serif;
-  }
-  .grilla-botones{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:16px;
-    margin-bottom:30px;
-  }
-  @media(max-width:760px){.grilla-botones{grid-template-columns:repeat(2, 1fr);}}
-  .boton-home{
-    background:var(--blanco);
-    border:1px solid var(--linea);
-    padding:22px 16px;
-    text-align:center;
-    cursor:pointer;
-    font-family:inherit;
-    color:var(--tinta);
-    transition:border-color .15s, transform .1s;
-  }
-  .boton-home:hover{
-    border-color:var(--terracota);
-    transform:translateY(-2px);
-  }
-  .boton-home .icono{
-    font-size:30px;
-    display:block;
-    margin-bottom:8px;
-  }
-  .boton-home .etiqueta{
-    font-size:13px;
-    letter-spacing:.02em;
-  }
-  .panel-titulo-home{
-    font-size:15px;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    color:#7a7164;
-    margin-bottom:14px;
-    font-family:inherit;
-  }
-  .tabla-empresas td, .tabla-empresas th{
-    font-size:12.5px;
-  }
+  .caja-empresa-mail{border:1px solid var(--linea);padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:inherit;}
+
+  .tabla-empresas td, .tabla-empresas th{font-size:12.5px;}
   .tabla-empresas a{color:var(--terracota);}
+
+  /* documentos */
+  .filtros-doc{display:grid;grid-template-columns:repeat(4,1fr);gap:0 14px;margin-bottom:20px;}
+  @media(max-width:760px){.filtros-doc{grid-template-columns:1fr 1fr;}}
+
+  /* selector tema */
+  .selector-tema{display:flex;gap:6px;}
+  .selector-tema button{
+    background:transparent;border:1px solid #6b6258;color:var(--crema);padding:6px 10px;font-size:13px;
+  }
+  .selector-tema button.activo{background:var(--terracota);border-color:var(--terracota);color:#fff;}
 </style>
 </head>
 <body>
@@ -333,9 +253,30 @@
 <div id="app">
   <header class="appbar">
     <div class="titulo">Arómata <span>· Panel de gestión</span></div>
-    <div class="usuario-activo">
-      <span id="nombreUsuarioActivo"></span>
-      <button onclick="cerrarSesion()">Cerrar sesión</button>
+
+    <div class="buscador-global-cont">
+      <input type="text" id="inputBusquedaGlobal" placeholder="Buscar operación, empresa, usuario..." oninput="buscarGlobal()">
+      <div class="resultados-busqueda-global" id="resultadosBusquedaGlobal"></div>
+    </div>
+
+    <div class="iconos-derecha">
+      <div class="selector-tema">
+        <button id="btnTemaClaro" onclick="cambiarTema('claro')">☀ Claro</button>
+        <button id="btnTemaOscuro" onclick="cambiarTema('oscuro')">☾ Oscuro</button>
+      </div>
+      <button class="boton-icono" onclick="toggleNotificaciones()">🔔<span class="badge-notif" id="badgeNotif" style="display:none;">0</span></button>
+      <div class="usuario-activo">
+        <span id="nombreUsuarioActivo"></span>
+        <button onclick="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <div class="panel-notificaciones" id="panelNotificaciones">
+      <div class="encabezado-notif">
+        <strong>Notificaciones</strong>
+        <button class="boton-chico secundario" onclick="marcarTodasLeidas()">Marcar todas leídas</button>
+      </div>
+      <div id="listaNotificaciones"><div class="vacio" style="padding:14px;">Cargando...</div></div>
     </div>
   </header>
 
@@ -344,6 +285,8 @@
     <button class="tab-btn" data-tab="compras">Compras</button>
     <button class="tab-btn" data-tab="ventas">Ventas</button>
     <button class="tab-btn" data-tab="buscador">Buscar / Editar</button>
+    <button class="tab-btn" data-tab="documentos">Centro de Documentos</button>
+    <button class="tab-btn" data-tab="correos">Generador de Correos</button>
     <button class="tab-btn" data-tab="deudas">Deudas</button>
     <button class="tab-btn" data-tab="pendientes">Pendientes</button>
     <button class="tab-btn" data-tab="errores">Errores</button>
@@ -367,15 +310,27 @@
         </div>
       </div>
 
+      <div class="tarjeta-frase">
+        <div class="etiqueta-frase">Mensaje del momento</div>
+        <div class="texto-frase" id="fraseDelMomento">Cargando...</div>
+      </div>
+
       <div class="grilla-botones">
         <button class="boton-home" data-ir="compras"><span class="icono">🧾</span><span class="etiqueta">Compras</span></button>
         <button class="boton-home" data-ir="ventas"><span class="icono">💰</span><span class="etiqueta">Ventas</span></button>
         <button class="boton-home" data-ir="buscador"><span class="icono">🔎</span><span class="etiqueta">Buscar / Editar</span></button>
+        <button class="boton-home" data-ir="documentos"><span class="icono">📁</span><span class="etiqueta">Centro de Documentos</span></button>
+        <button class="boton-home" data-ir="correos"><span class="icono">✉️</span><span class="etiqueta">Generador de Correos</span></button>
         <button class="boton-home" data-ir="deudas"><span class="icono">📄</span><span class="etiqueta">Deudas</span></button>
         <button class="boton-home" data-ir="pendientes"><span class="icono">📝</span><span class="etiqueta">Pendientes</span></button>
         <button class="boton-home" data-ir="errores"><span class="icono">⚠️</span><span class="etiqueta">Errores</span></button>
-        <button class="boton-home" data-ir="contactos"><span class="icono">✉️</span><span class="etiqueta">Contactar empresa</span></button>
+        <button class="boton-home" data-ir="contactos"><span class="icono">📧</span><span class="etiqueta">Contactar empresa</span></button>
         <button class="boton-home" data-ir="datosempresas"><span class="icono">🏢</span><span class="etiqueta">Datos Empresas</span></button>
+      </div>
+
+      <h2 style="font-size:20px;">Vencimientos próximos</h2>
+      <div class="panel">
+        <div id="listaVencimientos" class="vacio">Cargando...</div>
       </div>
 
       <div class="panel">
@@ -394,19 +349,19 @@
           <div class="grid2">
             <div>
               <label>N° de Orden de Compra <span class="obligatorio">*</span></label>
-              <input type="text" id="c_numOperacion" placeholder="0000-0000" required oninput="chequearExistencia('c_numOperacion','c_avisoExiste',true)">
+              <input type="text" id="c_numOperacion" placeholder="0000-0000" required oninput="chequearExistencia('c_numOperacion','c_avisoExiste',true); actualizarProgreso('compras')">
               <small class="ayuda">Formato: 4 dígitos - guion - 4 dígitos</small>
               <div id="c_avisoExiste" class="mensaje fallo" style="display:none;margin-top:8px;"></div>
             </div>
             <div>
               <label>Fecha <span class="obligatorio">*</span></label>
-              <input type="date" id="c_fecha" required>
+              <input type="date" id="c_fecha" required oninput="actualizarProgreso('compras')">
             </div>
           </div>
           <div class="grid2">
             <div>
               <label>Empresa proveedora <span class="obligatorio">*</span></label>
-              <select id="c_empresa" required>
+              <select id="c_empresa" required onchange="actualizarProgreso('compras')">
                 <option value="">Elegí una empresa</option>
                 <option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option>
               </select>
@@ -418,30 +373,38 @@
             <legend>Comprobantes</legend>
             <div class="archivo-campo">
               <label>Orden de Compra <span class="obligatorio">*</span></label>
-              <input type="file" id="c_archOrden" required onchange="mostrarNombreArchivo(this,'c_nombreOrden')">
+              <input type="file" id="c_archOrden" required onchange="mostrarNombreArchivo(this,'c_nombreOrden'); actualizarProgreso('compras')">
               <small class="ayuda" id="c_nombreOrden"></small>
             </div>
             <div class="archivo-campo">
               <label>Factura / Nota de Crédito-Débito <span class="obligatorio">*</span></label>
-              <input type="file" id="c_archFactura" required onchange="mostrarNombreArchivo(this,'c_nombreFactura')">
+              <input type="file" id="c_archFactura" required onchange="mostrarNombreArchivo(this,'c_nombreFactura'); actualizarProgreso('compras')">
               <small class="ayuda" id="c_nombreFactura"></small>
             </div>
             <div class="archivo-campo">
               <label>Recibo (opcional)</label>
-              <input type="file" id="c_archRecibo" onchange="mostrarNombreArchivo(this,'c_nombreRecibo')">
+              <input type="file" id="c_archRecibo" onchange="mostrarNombreArchivo(this,'c_nombreRecibo'); actualizarProgreso('compras')">
               <small class="ayuda" id="c_nombreRecibo"></small>
             </div>
             <div class="archivo-campo">
               <label>Método de Pago / comprobante (opcional)</label>
-              <input type="file" id="c_archMetodoPago" onchange="mostrarNombreArchivo(this,'c_nombreMetodoPago')">
+              <input type="file" id="c_archMetodoPago" onchange="mostrarNombreArchivo(this,'c_nombreMetodoPago'); actualizarProgreso('compras')">
               <small class="ayuda" id="c_nombreMetodoPago"></small>
             </div>
             <div class="archivo-campo">
               <label>Remito (opcional)</label>
-              <input type="file" id="c_archRemito" onchange="mostrarNombreArchivo(this,'c_nombreRemito')">
+              <input type="file" id="c_archRemito" onchange="mostrarNombreArchivo(this,'c_nombreRemito'); actualizarProgreso('compras')">
               <small class="ayuda" id="c_nombreRemito"></small>
             </div>
           </fieldset>
+
+          <div class="progreso-cont">
+            <div class="barra-progreso-ext"><div class="barra-progreso-int" id="barraProgresoCompras"></div></div>
+            <div class="progreso-texto">
+              <span id="textoProgresoCompras">0% completado</span>
+              <span class="estado-texto" id="estadoProgresoCompras">Formulario incompleto</span>
+            </div>
+          </div>
 
           <div class="acciones-form">
             <button type="button" class="boton-principal" style="width:auto;" onclick="confirmarYGuardarCompra()">Guardar operación</button>
@@ -451,9 +414,7 @@
       </div>
 
       <h2>Compras cargadas</h2>
-      <div class="panel">
-        <div id="listaCompras" class="vacio">Cargando...</div>
-      </div>
+      <div class="panel"><div id="listaCompras" class="vacio">Cargando...</div></div>
     </section>
 
     <!-- ===== VENTAS ===== -->
@@ -466,18 +427,18 @@
           <div class="grid2">
             <div>
               <label>N° de Factura propia <span class="obligatorio">*</span></label>
-              <input type="text" id="v_numOperacion" placeholder="0001-0001" required oninput="chequearExistencia('v_numOperacion','v_avisoExiste',false)">
+              <input type="text" id="v_numOperacion" placeholder="0001-0001" required oninput="chequearExistencia('v_numOperacion','v_avisoExiste',false); actualizarProgreso('ventas')">
               <div id="v_avisoExiste" class="mensaje fallo" style="display:none;margin-top:8px;"></div>
             </div>
             <div>
               <label>Fecha <span class="obligatorio">*</span></label>
-              <input type="date" id="v_fecha" required>
+              <input type="date" id="v_fecha" required oninput="actualizarProgreso('ventas')">
             </div>
           </div>
           <div class="grid2">
             <div>
               <label>Empresa cliente <span class="obligatorio">*</span></label>
-              <select id="v_empresa" required>
+              <select id="v_empresa" required onchange="actualizarProgreso('ventas')">
                 <option value="">Elegí una empresa</option>
                 <option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option>
               </select>
@@ -489,30 +450,38 @@
             <legend>Comprobantes</legend>
             <div class="archivo-campo">
               <label>Orden de Compra recibida (opcional)</label>
-              <input type="file" id="v_archOrden" onchange="mostrarNombreArchivo(this,'v_nombreOrden')">
+              <input type="file" id="v_archOrden" onchange="mostrarNombreArchivo(this,'v_nombreOrden'); actualizarProgreso('ventas')">
               <small class="ayuda" id="v_nombreOrden"></small>
             </div>
             <div class="archivo-campo">
               <label>Factura / Nota de Débito-Crédito <span class="obligatorio">*</span></label>
-              <input type="file" id="v_archFactura" required onchange="mostrarNombreArchivo(this,'v_nombreFactura')">
+              <input type="file" id="v_archFactura" required onchange="mostrarNombreArchivo(this,'v_nombreFactura'); actualizarProgreso('ventas')">
               <small class="ayuda" id="v_nombreFactura"></small>
             </div>
             <div class="archivo-campo">
               <label>Recibo (opcional)</label>
-              <input type="file" id="v_archRecibo" onchange="mostrarNombreArchivo(this,'v_nombreRecibo')">
+              <input type="file" id="v_archRecibo" onchange="mostrarNombreArchivo(this,'v_nombreRecibo'); actualizarProgreso('ventas')">
               <small class="ayuda" id="v_nombreRecibo"></small>
             </div>
             <div class="archivo-campo">
               <label>Método de Pago / comprobante (opcional)</label>
-              <input type="file" id="v_archMetodoPago" onchange="mostrarNombreArchivo(this,'v_nombreMetodoPago')">
+              <input type="file" id="v_archMetodoPago" onchange="mostrarNombreArchivo(this,'v_nombreMetodoPago'); actualizarProgreso('ventas')">
               <small class="ayuda" id="v_nombreMetodoPago"></small>
             </div>
             <div class="archivo-campo">
               <label>Remito (opcional)</label>
-              <input type="file" id="v_archRemito" onchange="mostrarNombreArchivo(this,'v_nombreRemito')">
+              <input type="file" id="v_archRemito" onchange="mostrarNombreArchivo(this,'v_nombreRemito'); actualizarProgreso('ventas')">
               <small class="ayuda" id="v_nombreRemito"></small>
             </div>
           </fieldset>
+
+          <div class="progreso-cont">
+            <div class="barra-progreso-ext"><div class="barra-progreso-int" id="barraProgresoVentas"></div></div>
+            <div class="progreso-texto">
+              <span id="textoProgresoVentas">0% completado</span>
+              <span class="estado-texto" id="estadoProgresoVentas">Formulario incompleto</span>
+            </div>
+          </div>
 
           <div class="acciones-form">
             <button type="button" class="boton-principal" style="width:auto;" onclick="confirmarYGuardarVenta()">Guardar operación</button>
@@ -522,9 +491,7 @@
       </div>
 
       <h2>Ventas cargadas</h2>
-      <div class="panel">
-        <div id="listaVentas" class="vacio">Cargando...</div>
-      </div>
+      <div class="panel"><div id="listaVentas" class="vacio">Cargando...</div></div>
     </section>
 
     <!-- ===== BUSCADOR / EDITOR ===== -->
@@ -533,16 +500,10 @@
       <div class="subtitulo">Poné el N° de Orden de Compra o N° de Factura tal cual está cargado.</div>
       <div class="panel">
         <div class="grid2">
-          <div>
-            <label>N° de operación</label>
-            <input type="text" id="b_numero" placeholder="0000-0000">
-          </div>
+          <div><label>N° de operación</label><input type="text" id="b_numero" placeholder="0000-0000"></div>
           <div>
             <label>Tipo</label>
-            <select id="b_tipo">
-              <option value="compra">Compra</option>
-              <option value="venta">Venta</option>
-            </select>
+            <select id="b_tipo"><option value="compra">Compra</option><option value="venta">Venta</option></select>
           </div>
         </div>
         <div class="acciones-form">
@@ -552,35 +513,94 @@
       </div>
     </section>
 
-    <!-- ===== DEUDAS ===== -->
-    <section class="seccion" id="seccion-deudas">
-      <h2>Deudas</h2>
-      <div class="subtitulo">Registro manual de lo que debemos y lo que nos deben.</div>
+    <!-- ===== CENTRO DE DOCUMENTOS ===== -->
+    <section class="seccion" id="seccion-documentos">
+      <h2>Centro de Documentos</h2>
+      <div class="subtitulo">Todos los archivos almacenados en Drive, en un solo lugar.</div>
       <div class="panel">
-        <div class="grid2">
+        <div class="filtros-doc">
           <div>
             <label>Empresa</label>
-            <select id="d_empresa">
+            <select id="doc_empresa" onchange="aplicarFiltrosDocumentos()">
+              <option value="">Todas</option>
               <option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option>
             </select>
           </div>
           <div>
-            <label>Tipo</label>
-            <select id="d_tipo">
-              <option value="Debemos">Debemos</option>
-              <option value="Nos deben">Nos deben</option>
+            <label>Tipo de documento</label>
+            <select id="doc_tipo" onchange="aplicarFiltrosDocumentos()">
+              <option value="">Todos</option>
+              <option>Orden de Compra</option><option>Factura</option><option>Recibo</option><option>Método de Pago</option><option>Remito</option>
+            </select>
+          </div>
+          <div>
+            <label>Compra o Venta</label>
+            <select id="doc_origen" onchange="aplicarFiltrosDocumentos()">
+              <option value="">Ambas</option>
+              <option value="compra">Compra</option>
+              <option value="venta">Venta</option>
+            </select>
+          </div>
+          <div>
+            <label>Buscar (operación)</label>
+            <input type="text" id="doc_texto" placeholder="N° de operación" oninput="aplicarFiltrosDocumentos()">
+          </div>
+        </div>
+        <div id="listaDocumentos" class="vacio">Cargando...</div>
+      </div>
+    </section>
+
+    <!-- ===== GENERADOR DE CORREOS ===== -->
+    <section class="seccion" id="seccion-correos">
+      <h2>Generador de Correos</h2>
+      <div class="subtitulo">Elegí empresa y plantilla, revisá el texto y enviá desde Gmail.</div>
+      <div class="panel">
+        <div class="grid2">
+          <div>
+            <label>Empresa</label>
+            <select id="co_empresa" onchange="generarCorreo()">
+              <option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option>
+            </select>
+          </div>
+          <div>
+            <label>Tipo de correo</label>
+            <select id="co_tipo" onchange="generarCorreo()">
+              <option value="reclamo">Reclamo de deuda</option>
+              <option value="confirmacion">Confirmación de pago</option>
+              <option value="documentacion">Solicitud de documentación</option>
+              <option value="consulta">Consulta comercial</option>
+              <option value="vencimiento">Recordatorio de vencimiento</option>
             </select>
           </div>
         </div>
+        <label>Asunto</label>
+        <input type="text" id="co_asunto">
+        <label>Cuerpo del mensaje</label>
+        <textarea id="co_cuerpo" rows="9"></textarea>
+        <div class="acciones-form">
+          <button class="boton-principal" style="width:auto;" onclick="enviarCorreoGenerado()">Enviar con Gmail</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEUDAS ===== -->
+    <section class="seccion" id="seccion-deudas">
+      <h2>Deudas</h2>
+      <div class="subtitulo">Registro manual de lo que debemos y lo que nos deben. También alimenta el panel de Vencimientos en Inicio.</div>
+      <div class="panel">
         <div class="grid2">
           <div>
-            <label>Importe</label>
-            <input type="number" id="d_importe" step="0.01">
+            <label>Empresa</label>
+            <select id="d_empresa"><option>GlowNest</option><option>Bloomderm</option><option>Glow</option><option>EUNOIA</option><option>NUMIA</option></select>
           </div>
           <div>
-            <label>Vencimiento</label>
-            <input type="date" id="d_vencimiento">
+            <label>Tipo</label>
+            <select id="d_tipo"><option value="Debemos">Debemos</option><option value="Nos deben">Nos deben</option></select>
           </div>
+        </div>
+        <div class="grid2">
+          <div><label>Importe</label><input type="number" id="d_importe" step="0.01"></div>
+          <div><label>Vencimiento</label><input type="date" id="d_vencimiento"></div>
         </div>
         <label>Detalle</label>
         <input type="text" id="d_detalle" placeholder="Ej: Factura 0001-0009 pendiente de pago">
@@ -589,11 +609,8 @@
         </div>
         <div class="mensaje" id="mensajeDeudas"></div>
       </div>
-
       <h2>Deudas registradas</h2>
-      <div class="panel">
-        <div id="listaDeudas" class="vacio">Cargando...</div>
-      </div>
+      <div class="panel"><div id="listaDeudas" class="vacio">Cargando...</div></div>
     </section>
 
     <!-- ===== PENDIENTES ===== -->
@@ -608,10 +625,7 @@
         </div>
         <div class="mensaje" id="mensajePendientes"></div>
       </div>
-
-      <div class="panel">
-        <div id="listaPendientes" class="vacio">Cargando...</div>
-      </div>
+      <div class="panel"><div id="listaPendientes" class="vacio">Cargando...</div></div>
     </section>
 
     <!-- ===== ERRORES ===== -->
@@ -620,9 +634,7 @@
       <div class="subtitulo">Reportá cualquier error o problema que encuentres en la página.</div>
       <div class="panel">
         <label>Módulo donde ocurrió</label>
-        <select id="e_modulo">
-          <option>Compras</option><option>Ventas</option><option>Deudas</option><option>Pendientes</option><option>Otro</option>
-        </select>
+        <select id="e_modulo"><option>Compras</option><option>Ventas</option><option>Deudas</option><option>Pendientes</option><option>Otro</option></select>
         <label>Descripción del error</label>
         <input type="text" id="e_descripcion" placeholder="Contá qué pasó">
         <div class="acciones-form">
@@ -630,10 +642,7 @@
         </div>
         <div class="mensaje" id="mensajeErrores"></div>
       </div>
-
-      <div class="panel">
-        <div id="listaErrores" class="vacio">Cargando...</div>
-      </div>
+      <div class="panel"><div id="listaErrores" class="vacio">Cargando...</div></div>
     </section>
 
     <!-- ===== CONTACTAR EMPRESA ===== -->
@@ -649,11 +658,7 @@
       <div class="subtitulo">Información de contacto, fiscal y comercial de cada empresa de la simulación.</div>
       <div class="panel" style="overflow-x:auto;">
         <table class="tabla-lista tabla-empresas">
-          <thead>
-            <tr>
-              <th>Empresa</th><th>IVA</th><th>Dirección</th><th>CUIT</th><th>Mail</th><th>Catálogo</th><th>N° C/C Banco Prov.</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Empresa</th><th>IVA</th><th>Dirección</th><th>CUIT</th><th>Mail</th><th>Catálogo</th><th>N° C/C Banco Prov.</th></tr></thead>
           <tbody id="cuerpoTablaEmpresas"></tbody>
         </table>
       </div>
@@ -675,7 +680,6 @@ const USUARIOS = {
   "Rafaela Gabutti": "2401"
 };
 
-// Mails reales de cada empresa
 const CORREOS_EMPRESAS = {
   "GlowNest": "somos.glownest@gmail.com",
   "Bloomderm": "bloomdermsc@gmail.com",
@@ -684,68 +688,68 @@ const CORREOS_EMPRESAS = {
   "NUMIA": "chicassic2026@gmail.com"
 };
 
-// Datos completos de todas las empresas (incluye Arómata) para el módulo "Datos Empresas"
 const DATOS_EMPRESAS = [
-  {
-    empresa: "NUMIA", iva: "RI",
-    direccion: "Av. Moreau de Justo Nº 390, partido de CABA, Pcia. de Buenos Aires.",
-    cuit: "30-35845921-3", mail: "chicassic2026@gmail.com",
-    catalogo: "https://canva.link/f5we59c8iwrzo7n", cuentaBanco: "23548/8"
-  },
-  {
-    empresa: "EUNOIA", iva: "RI",
-    direccion: "Av. Santa Fé Nº1860, piso 9 oficina 12, Recoleta, partido de CABA, Pcia. de Buenos Aires.",
-    cuit: "33-12498534-2", mail: "eunoiamers@gmail.com",
-    catalogo: "https://canva.link/43ovo2zufla5rhr", cuentaBanco: "56423/5"
-  },
-  {
-    empresa: "GLOW", iva: "RI",
-    direccion: "Av. Cabildo Nº2345, piso 1 oficina 4, partido General Belgrano, Capital Federal, Pcia. de Buenos Aires.",
-    cuit: "33-99924210-9", mail: "glowsic26@gmail.com",
-    catalogo: "https://canva.link/zwaybihb5dj91zc", cuentaBanco: "12579/9"
-  },
-  {
-    empresa: "GlowNest", iva: "RI",
-    direccion: "Villa Bosch, calle Leonardo Murialdo Nº2026, partido Tres de Febrero, Pcia. de Buenos Aires.",
-    cuit: "30-84723648-1", mail: "somos.glownest@gmail.com",
-    catalogo: "https://canva.link/z5asjwyg2144wdw", cuentaBanco: "65482/3"
-  },
-  {
-    empresa: "BLOOMDERM", iva: "RI",
-    direccion: "Villa Bosch, calle Santos Vega Nº111, partido Tres de Febrero, Pcia. de Buenos Aires.",
-    cuit: "30-77612548-7", mail: "bloomdermsc@gmail.com",
-    catalogo: "https://www.canva.com/design/DAHIPp6JJp4/plIIfqdJAMADBcxo9DhwuA/edit", cuentaBanco: "47589/1"
-  },
-  {
-    empresa: "ARÓMATA", iva: "RI",
-    direccion: "Nueva York Nº 5200, piso 4 oficina 3, partido CABA, Buenos Aires.",
-    cuit: "33-57631572-4", mail: "aromata30@gmail.com",
-    catalogo: "https://canva.link/y1bmdcu9lvhstm5", cuentaBanco: "85642/7"
-  }
+  { empresa: "NUMIA", iva: "RI", direccion: "Av. Moreau de Justo Nº 390, partido de CABA, Pcia. de Buenos Aires.", cuit: "30-35845921-3", mail: "chicassic2026@gmail.com", catalogo: "https://canva.link/f5we59c8iwrzo7n", cuentaBanco: "23548/8" },
+  { empresa: "EUNOIA", iva: "RI", direccion: "Av. Santa Fé Nº1860, piso 9 oficina 12, Recoleta, partido de CABA, Pcia. de Buenos Aires.", cuit: "33-12498534-2", mail: "eunoiamers@gmail.com", catalogo: "https://canva.link/43ovo2zufla5rhr", cuentaBanco: "56423/5" },
+  { empresa: "GLOW", iva: "RI", direccion: "Av. Cabildo Nº2345, piso 1 oficina 4, partido General Belgrano, Capital Federal, Pcia. de Buenos Aires.", cuit: "33-99924210-9", mail: "glowsic26@gmail.com", catalogo: "https://canva.link/zwaybihb5dj91zc", cuentaBanco: "12579/9" },
+  { empresa: "GlowNest", iva: "RI", direccion: "Villa Bosch, calle Leonardo Murialdo Nº2026, partido Tres de Febrero, Pcia. de Buenos Aires.", cuit: "30-84723648-1", mail: "somos.glownest@gmail.com", catalogo: "https://canva.link/z5asjwyg2144wdw", cuentaBanco: "65482/3" },
+  { empresa: "BLOOMDERM", iva: "RI", direccion: "Villa Bosch, calle Santos Vega Nº111, partido Tres de Febrero, Pcia. de Buenos Aires.", cuit: "30-77612548-7", mail: "bloomdermsc@gmail.com", catalogo: "https://www.canva.com/design/DAHIPp6JJp4/plIIfqdJAMADBcxo9DhwuA/edit", cuentaBanco: "47589/1" },
+  { empresa: "ARÓMATA", iva: "RI", direccion: "Nueva York Nº 5200, piso 4 oficina 3, partido CABA, Buenos Aires.", cuit: "33-57631572-4", mail: "aromata30@gmail.com", catalogo: "https://canva.link/y1bmdcu9lvhstm5", cuentaBanco: "85642/7" }
 ];
+
+const FRASES_POR_HORA = {
+  manana: [
+    "Cada operación bien registrada es una decisión inteligente.",
+    "Empezar el día con orden ahorra tiempo más tarde.",
+    "Un buen registro hoy evita un problema mañana."
+  ],
+  mediodia: [
+    "Las empresas exitosas se construyen con organización.",
+    "La constancia en los detalles hace la diferencia.",
+    "Cada comprobante cargado es un paso más prolijo."
+  ],
+  tarde: [
+    "Los datos ordenados generan mejores resultados.",
+    "Revisar lo cargado hoy simplifica el cierre de la semana.",
+    "La prolijidad de ahora se nota en el balance de mañana."
+  ],
+  noche: [
+    "El trabajo de hoy simplifica el de mañana.",
+    "Cerrar el día con todo registrado es un buen hábito.",
+    "Un equipo ordenado toma mejores decisiones."
+  ]
+};
 
 let usuarioActivo = null;
 let timeoutBusquedaExistencia = null;
+let timeoutBusquedaGlobal = null;
+let documentosCache = [];
+
+// ---------- TEMA ----------
+function cambiarTema(tema){
+  document.documentElement.setAttribute('data-tema', tema);
+  localStorage.setItem('aromata_tema', tema);
+  document.getElementById('btnTemaClaro').classList.toggle('activo', tema === 'claro');
+  document.getElementById('btnTemaOscuro').classList.toggle('activo', tema === 'oscuro');
+}
+(function inicializarTema(){
+  const guardado = localStorage.getItem('aromata_tema') || 'claro';
+  cambiarTema(guardado);
+})();
 
 // ---------- LOGIN ----------
 function intentarLogin(){
   const usuario = document.getElementById('loginUsuario').value;
   const clave = document.getElementById('loginClave').value;
   const errorBox = document.getElementById('errorLogin');
-
-  if(!usuario || USUARIOS[usuario] !== clave){
-    errorBox.style.display = 'block';
-    return;
-  }
+  if(!usuario || USUARIOS[usuario] !== clave){ errorBox.style.display = 'block'; return; }
   errorBox.style.display = 'none';
   usuarioActivo = usuario;
   document.getElementById('nombreUsuarioActivo').textContent = usuario;
   document.getElementById('pantallaLogin').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-
   cargarTodo();
 }
-
 function cerrarSesion(){
   usuarioActivo = null;
   document.getElementById('loginClave').value = '';
@@ -754,13 +758,8 @@ function cerrarSesion(){
 }
 
 // ---------- TABS ----------
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => irATab(btn.dataset.tab));
-});
-
-document.querySelectorAll('.boton-home').forEach(btn => {
-  btn.addEventListener('click', () => irATab(btn.dataset.ir));
-});
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => irATab(btn.dataset.tab)));
+document.querySelectorAll('.boton-home').forEach(btn => btn.addEventListener('click', () => irATab(btn.dataset.ir)));
 
 function irATab(tabId){
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
@@ -769,60 +768,16 @@ function irATab(tabId){
   if(btnNav) btnNav.classList.add('activo');
   document.getElementById('seccion-' + tabId).classList.add('activa');
 
-  if(tabId === 'inicio'){ cargarActividad(); cargarResumenHome(); }
-  if(tabId === 'compras') cargarListaCompras();
-  if(tabId === 'ventas') cargarListaVentas();
+  if(tabId === 'inicio'){ cargarActividad(); cargarResumenHome(); cargarVencimientos(); mostrarFraseDelMomento(); }
+  if(tabId === 'compras'){ cargarListaCompras(); actualizarProgreso('compras'); }
+  if(tabId === 'ventas'){ cargarListaVentas(); actualizarProgreso('ventas'); }
   if(tabId === 'deudas') cargarListaDeudas();
   if(tabId === 'pendientes') cargarListaPendientes();
   if(tabId === 'errores') cargarListaErrores();
   if(tabId === 'contactos') cargarContactos();
   if(tabId === 'datosempresas') cargarDatosEmpresas();
-}
-
-// ---------- RELOJ ----------
-function actualizarReloj(){
-  const ahora = new Date();
-  const opcionesDia = { weekday:'long', day:'numeric', month:'long', year:'numeric' };
-  document.getElementById('homeDia').textContent = ahora.toLocaleDateString('es-AR', opcionesDia);
-  document.getElementById('homeHora').textContent = ahora.toLocaleTimeString('es-AR');
-}
-setInterval(actualizarReloj, 1000);
-actualizarReloj();
-
-// ---------- RESUMEN HOME ----------
-async function cargarResumenHome(){
-  try{
-    const [pendientes, errores, deudas] = await Promise.all([
-      consultarBackend({ accion: "listarPendientes" }),
-      consultarBackend({ accion: "listarErrores" }),
-      consultarBackend({ accion: "listarDeudas" })
-    ]);
-    const pendAbiertos = Array.isArray(pendientes) ? pendientes.filter(p => p.estado !== 'Hecho').length : 0;
-    const errAbiertos = Array.isArray(errores) ? errores.filter(e => e.estado !== 'Resuelto').length : 0;
-    const deudasActivas = Array.isArray(deudas) ? deudas.filter(d => d.estado !== 'Pagado').length : 0;
-
-    document.getElementById('resumenPendientes').textContent = pendAbiertos;
-    document.getElementById('resumenErrores').textContent = errAbiertos;
-    document.getElementById('resumenDeudas').textContent = deudasActivas;
-  }catch(err){ /* silencioso */ }
-}
-
-// ---------- DATOS EMPRESAS ----------
-function cargarDatosEmpresas(){
-  const cuerpo = document.getElementById('cuerpoTablaEmpresas');
-  let html = '';
-  DATOS_EMPRESAS.forEach(emp => {
-    html += `<tr>
-      <td><strong>${escaparHtml(emp.empresa)}</strong></td>
-      <td>${escaparHtml(emp.iva)}</td>
-      <td>${escaparHtml(emp.direccion)}</td>
-      <td>${escaparHtml(emp.cuit)}</td>
-      <td>${escaparHtml(emp.mail)}</td>
-      <td><a href="${escaparHtml(emp.catalogo)}" target="_blank">Ver catálogo</a></td>
-      <td>${escaparHtml(emp.cuentaBanco)}</td>
-    </tr>`;
-  });
-  cuerpo.innerHTML = html;
+  if(tabId === 'documentos') cargarDocumentos();
+  if(tabId === 'correos') generarCorreo();
 }
 
 // ---------- HELPERS ----------
@@ -836,40 +791,32 @@ function archivoABase64(inputFile){
     reader.readAsDataURL(file);
   });
 }
-
 function mostrarNombreArchivo(input, idDestino){
-  const el = document.getElementById(idDestino);
-  el.textContent = input.files[0] ? "Seleccionado: " + input.files[0].name : "";
+  document.getElementById(idDestino).textContent = input.files[0] ? "Seleccionado: " + input.files[0].name : "";
 }
-
 function mostrarMensaje(idMensaje, tipo, texto){
   const el = document.getElementById(idMensaje);
   el.className = 'mensaje ' + tipo;
   el.textContent = texto;
 }
-
 async function enviarBackend(payload){
   const resp = await fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify(payload) });
   return resp.json();
 }
-
 async function consultarBackend(params){
   const url = URL_BACKEND + "?" + new URLSearchParams(params).toString();
   const resp = await fetch(url);
   return resp.json();
 }
-
 function formatearFechaArg(inputDate){
   if(!inputDate) return '';
   const [y,m,d] = inputDate.split('-');
   return `${d}/${m}/${y}`;
 }
-
 function escaparHtml(texto){
   if(texto === null || texto === undefined) return '';
   return texto.toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
 function linkOTexto(valor){
   if(!valor) return '<span style="color:#bbb;">—</span>';
   return `<a href="${escaparHtml(valor)}" target="_blank">Ver archivo</a>`;
@@ -881,19 +828,47 @@ function chequearExistencia(idInput, idAviso, esCompra){
   const valor = document.getElementById(idInput).value.trim();
   const aviso = document.getElementById(idAviso);
   if(!valor){ aviso.style.display = 'none'; return; }
-
   timeoutBusquedaExistencia = setTimeout(async () => {
     try{
       const accion = esCompra ? "existeCompra" : "existeVenta";
-      const r = await consultarBackend({ accion: accion, numero: valor });
-      if(r.existe){
-        aviso.textContent = "⚠ Ese número ya existe en el sistema.";
-        aviso.style.display = 'block';
-      } else {
-        aviso.style.display = 'none';
-      }
-    }catch(err){ /* silencioso */ }
+      const r = await consultarBackend({ accion, numero: valor });
+      aviso.style.display = r.existe ? 'block' : 'none';
+      if(r.existe) aviso.textContent = "⚠ Ese número ya existe en el sistema.";
+    }catch(err){}
   }, 500);
+}
+
+// ---------- INDICADOR DE PROGRESO ----------
+function actualizarProgreso(modulo){
+  let camposObligatorios, camposOpcionales, prefijo;
+  if(modulo === 'compras'){
+    camposObligatorios = ['c_numOperacion','c_fecha','c_empresa'];
+    camposOpcionales = ['c_archRecibo','c_archMetodoPago','c_archRemito'];
+    prefijo = 'c_';
+  } else {
+    camposObligatorios = ['v_numOperacion','v_fecha','v_empresa'];
+    camposOpcionales = ['v_archOrden','v_archRecibo','v_archMetodoPago','v_archRemito'];
+    prefijo = 'v_';
+  }
+  const archObligatorios = modulo === 'compras' ? ['c_archOrden','c_archFactura'] : ['v_archFactura'];
+
+  let total = camposObligatorios.length + archObligatorios.length + camposOpcionales.length;
+  let completados = 0;
+
+  camposObligatorios.forEach(id => { if(document.getElementById(id).value.trim()) completados++; });
+  archObligatorios.forEach(id => { if(document.getElementById(id).files[0]) completados++; });
+  camposOpcionales.forEach(id => { if(document.getElementById(id).files[0]) completados++; });
+
+  const porcentaje = Math.round((completados / total) * 100);
+
+  const sufijo = modulo === 'compras' ? 'Compras' : 'Ventas';
+  document.getElementById('barraProgreso' + sufijo).style.width = porcentaje + '%';
+  document.getElementById('textoProgreso' + sufijo).textContent = porcentaje + '% completado';
+
+  let estado = 'Formulario incompleto';
+  if(porcentaje >= 100) estado = 'Listo para guardar';
+  else if(porcentaje >= 60) estado = 'Formulario casi listo';
+  document.getElementById('estadoProgreso' + sufijo).textContent = estado;
 }
 
 // ---------- COMPRAS ----------
@@ -908,9 +883,7 @@ async function confirmarYGuardarCompra(){
     mostrarMensaje('mensajeCompras','fallo','Completá los campos obligatorios (*) antes de guardar.');
     return;
   }
-
   mostrarMensaje('mensajeCompras','cargando','Subiendo archivos y guardando la operación, esperá un momento...');
-
   const fecha = formatearFechaArg(fechaInput);
 
   const archivoOrdenCompra = await archivoABase64(archOrden);
@@ -919,10 +892,7 @@ async function confirmarYGuardarCompra(){
   const archivoMetodoPago = await archivoABase64(document.getElementById('c_archMetodoPago'));
   const archivoRemito = await archivoABase64(document.getElementById('c_archRemito'));
 
-  const payload = {
-    tipo: "compra", usuario: usuarioActivo, numeroOperacion: numOperacion, fecha, empresa,
-    archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito
-  };
+  const payload = { tipo: "compra", usuario: usuarioActivo, numeroOperacion: numOperacion, fecha, empresa, archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito };
 
   try{
     const resultado = await enviarBackend(payload);
@@ -930,14 +900,12 @@ async function confirmarYGuardarCompra(){
       mostrarMensaje('mensajeCompras','exito','✓ ' + resultado.mensaje);
       document.getElementById('formCompras').reset();
       ['c_nombreOrden','c_nombreFactura','c_nombreRecibo','c_nombreMetodoPago','c_nombreRemito'].forEach(id => document.getElementById(id).textContent='');
-      cargarListaCompras();
-      cargarActividad();
+      actualizarProgreso('compras');
+      cargarListaCompras(); cargarActividad(); cargarNotificaciones();
     } else {
       mostrarMensaje('mensajeCompras','fallo','✗ ' + resultado.mensaje);
     }
-  } catch(err){
-    mostrarMensaje('mensajeCompras','fallo','✗ Error de conexión: ' + err.toString());
-  }
+  } catch(err){ mostrarMensaje('mensajeCompras','fallo','✗ Error de conexión: ' + err.toString()); }
 }
 
 async function cargarListaCompras(){
@@ -946,23 +914,13 @@ async function cargarListaCompras(){
   try{
     const datos = await consultarBackend({ accion: "listarCompras" });
     if(!Array.isArray(datos) || datos.length === 0){ cont.innerHTML = '<div class="vacio">Todavía no hay compras cargadas.</div>'; return; }
-    let html = `<table class="tabla-lista"><thead><tr>
-      <th>N° Operación</th><th>Fecha</th><th>Empresa</th><th>Orden</th><th>Factura</th><th>Recibo</th><th>Método Pago</th><th>Remito</th>
-    </tr></thead><tbody>`;
+    let html = `<table class="tabla-lista"><thead><tr><th>N° Operación</th><th>Fecha</th><th>Empresa</th><th>Orden</th><th>Factura</th><th>Recibo</th><th>Método Pago</th><th>Remito</th></tr></thead><tbody>`;
     datos.forEach(op => {
-      html += `<tr>
-        <td>${escaparHtml(op.numeroOperacion)}</td>
-        <td>${escaparHtml(op.fecha)}</td>
-        <td>${escaparHtml(op.empresa)}</td>
-        <td>${linkOTexto(op.linkOrdenCompra)}</td>
-        <td>${linkOTexto(op.linkFactura)}</td>
-        <td>${linkOTexto(op.linkRecibo)}</td>
-        <td>${linkOTexto(op.linkMetodoPago)}</td>
-        <td>${linkOTexto(op.linkRemito)}</td>
-      </tr>`;
+      html += `<tr><td>${escaparHtml(op.numeroOperacion)}</td><td>${escaparHtml(op.fecha)}</td><td>${escaparHtml(op.empresa)}</td>
+        <td>${linkOTexto(op.linkOrdenCompra)}</td><td>${linkOTexto(op.linkFactura)}</td><td>${linkOTexto(op.linkRecibo)}</td>
+        <td>${linkOTexto(op.linkMetodoPago)}</td><td>${linkOTexto(op.linkRemito)}</td></tr>`;
     });
-    html += `</tbody></table>`;
-    cont.innerHTML = html;
+    cont.innerHTML = html + `</tbody></table>`;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar: ' + err.toString() + '</div>'; }
 }
 
@@ -977,9 +935,7 @@ async function confirmarYGuardarVenta(){
     mostrarMensaje('mensajeVentas','fallo','Completá los campos obligatorios (*) antes de guardar.');
     return;
   }
-
   mostrarMensaje('mensajeVentas','cargando','Subiendo archivos y guardando la operación, esperá un momento...');
-
   const fecha = formatearFechaArg(fechaInput);
 
   const archivoOrdenCompra = await archivoABase64(document.getElementById('v_archOrden'));
@@ -988,10 +944,7 @@ async function confirmarYGuardarVenta(){
   const archivoMetodoPago = await archivoABase64(document.getElementById('v_archMetodoPago'));
   const archivoRemito = await archivoABase64(document.getElementById('v_archRemito'));
 
-  const payload = {
-    tipo: "venta", usuario: usuarioActivo, numeroOperacion: numOperacion, fecha, empresa,
-    archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito
-  };
+  const payload = { tipo: "venta", usuario: usuarioActivo, numeroOperacion: numOperacion, fecha, empresa, archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito };
 
   try{
     const resultado = await enviarBackend(payload);
@@ -999,14 +952,12 @@ async function confirmarYGuardarVenta(){
       mostrarMensaje('mensajeVentas','exito','✓ ' + resultado.mensaje);
       document.getElementById('formVentas').reset();
       ['v_nombreOrden','v_nombreFactura','v_nombreRecibo','v_nombreMetodoPago','v_nombreRemito'].forEach(id => document.getElementById(id).textContent='');
-      cargarListaVentas();
-      cargarActividad();
+      actualizarProgreso('ventas');
+      cargarListaVentas(); cargarActividad(); cargarNotificaciones();
     } else {
       mostrarMensaje('mensajeVentas','fallo','✗ ' + resultado.mensaje);
     }
-  } catch(err){
-    mostrarMensaje('mensajeVentas','fallo','✗ Error de conexión: ' + err.toString());
-  }
+  } catch(err){ mostrarMensaje('mensajeVentas','fallo','✗ Error de conexión: ' + err.toString()); }
 }
 
 async function cargarListaVentas(){
@@ -1015,23 +966,13 @@ async function cargarListaVentas(){
   try{
     const datos = await consultarBackend({ accion: "listarVentas" });
     if(!Array.isArray(datos) || datos.length === 0){ cont.innerHTML = '<div class="vacio">Todavía no hay ventas cargadas.</div>'; return; }
-    let html = `<table class="tabla-lista"><thead><tr>
-      <th>N° Operación</th><th>Fecha</th><th>Empresa</th><th>Orden</th><th>Factura</th><th>Recibo</th><th>Método Pago</th><th>Remito</th>
-    </tr></thead><tbody>`;
+    let html = `<table class="tabla-lista"><thead><tr><th>N° Operación</th><th>Fecha</th><th>Empresa</th><th>Orden</th><th>Factura</th><th>Recibo</th><th>Método Pago</th><th>Remito</th></tr></thead><tbody>`;
     datos.forEach(op => {
-      html += `<tr>
-        <td>${escaparHtml(op.numeroOperacion)}</td>
-        <td>${escaparHtml(op.fecha)}</td>
-        <td>${escaparHtml(op.empresa)}</td>
-        <td>${linkOTexto(op.linkOrdenCompra)}</td>
-        <td>${linkOTexto(op.linkFactura)}</td>
-        <td>${linkOTexto(op.linkRecibo)}</td>
-        <td>${linkOTexto(op.linkMetodoPago)}</td>
-        <td>${linkOTexto(op.linkRemito)}</td>
-      </tr>`;
+      html += `<tr><td>${escaparHtml(op.numeroOperacion)}</td><td>${escaparHtml(op.fecha)}</td><td>${escaparHtml(op.empresa)}</td>
+        <td>${linkOTexto(op.linkOrdenCompra)}</td><td>${linkOTexto(op.linkFactura)}</td><td>${linkOTexto(op.linkRecibo)}</td>
+        <td>${linkOTexto(op.linkMetodoPago)}</td><td>${linkOTexto(op.linkRemito)}</td></tr>`;
     });
-    html += `</tbody></table>`;
-    cont.innerHTML = html;
+    cont.innerHTML = html + `</tbody></table>`;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar: ' + err.toString() + '</div>'; }
 }
 
@@ -1040,58 +981,41 @@ async function buscarOperacionWeb(){
   const numero = document.getElementById('b_numero').value.trim();
   const tipo = document.getElementById('b_tipo').value;
   const cont = document.getElementById('resultadoBusqueda');
-
   if(!numero){ cont.innerHTML = '<div class="mensaje fallo">Escribí un número de operación.</div>'; return; }
   cont.innerHTML = '<div class="mensaje cargando">Buscando...</div>';
 
   const accion = tipo === 'compra' ? 'buscarCompra' : 'buscarVenta';
   const r = await consultarBackend({ accion, numero });
-
-  if(!r.exito){
-    cont.innerHTML = `<div class="mensaje fallo">✗ ${escaparHtml(r.mensaje)}</div>`;
-    return;
-  }
+  if(!r.exito){ cont.innerHTML = `<div class="mensaje fallo">✗ ${escaparHtml(r.mensaje)}</div>`; return; }
 
   const op = r.operacion;
   cont.innerHTML = `
     <div class="resultado-busqueda">
       <h3 style="margin-top:0;">Editar operación ${escaparHtml(op.numeroOperacion)}</h3>
       <div class="grid2">
-        <div>
-          <label>N° de operación</label>
-          <input type="text" id="ed_numero" value="${escaparHtml(op.numeroOperacion)}">
-        </div>
-        <div>
-          <label>Fecha (DD/MM/AAAA)</label>
-          <input type="text" id="ed_fecha" value="${escaparHtml(op.fecha)}">
-        </div>
+        <div><label>N° de operación</label><input type="text" id="ed_numero" value="${escaparHtml(op.numeroOperacion)}"></div>
+        <div><label>Fecha (DD/MM/AAAA)</label><input type="text" id="ed_fecha" value="${escaparHtml(op.fecha)}"></div>
       </div>
       <label>Empresa</label>
-      <select id="ed_empresa">
-        ${["GlowNest","Bloomderm","Glow","EUNOIA","NUMIA"].map(e => `<option ${e===op.empresa?'selected':''}>${e}</option>`).join('')}
-      </select>
-
+      <select id="ed_empresa">${["GlowNest","Bloomderm","Glow","EUNOIA","NUMIA"].map(e => `<option ${e===op.empresa?'selected':''}>${e}</option>`).join('')}</select>
       <fieldset>
-        <legend>Reemplazar / agregar archivos (opcional — si no subís nada, se conserva lo que ya había)</legend>
+        <legend>Reemplazar / agregar archivos (opcional)</legend>
         <div class="archivo-campo"><label>Orden de Compra — actual: ${linkOTexto(op.linkOrdenCompra)}</label><input type="file" id="ed_archOrden"></div>
         <div class="archivo-campo"><label>Factura — actual: ${linkOTexto(op.linkFactura)}</label><input type="file" id="ed_archFactura"></div>
         <div class="archivo-campo"><label>Recibo — actual: ${linkOTexto(op.linkRecibo)}</label><input type="file" id="ed_archRecibo"></div>
         <div class="archivo-campo"><label>Método de Pago — actual: ${linkOTexto(op.linkMetodoPago)}</label><input type="file" id="ed_archMetodoPago"></div>
         <div class="archivo-campo"><label>Remito — actual: ${linkOTexto(op.linkRemito)}</label><input type="file" id="ed_archRemito"></div>
       </fieldset>
-
       <div class="acciones-form">
         <button class="boton-principal" style="width:auto;" onclick="guardarEdicion('${op.numeroOperacion}', ${tipo === 'compra'})">Guardar cambios</button>
         <button class="boton-peligro" onclick="anularOperacionWeb('${op.numeroOperacion}', ${tipo === 'compra'})">Anular operación</button>
       </div>
       <div class="mensaje" id="mensajeEdicion"></div>
-    </div>
-  `;
+    </div>`;
 }
 
 async function guardarEdicion(numeroOriginal, esCompra){
   mostrarMensaje('mensajeEdicion','cargando','Guardando cambios...');
-
   const archivoOrdenCompra = await archivoABase64(document.getElementById('ed_archOrden'));
   const archivoFactura = await archivoABase64(document.getElementById('ed_archFactura'));
   const archivoRecibo = await archivoABase64(document.getElementById('ed_archRecibo'));
@@ -1099,32 +1023,27 @@ async function guardarEdicion(numeroOriginal, esCompra){
   const archivoRemito = await archivoABase64(document.getElementById('ed_archRemito'));
 
   const payload = {
-    tipo: "editarOperacion",
-    usuario: usuarioActivo,
-    esCompra: esCompra,
-    numeroOperacionOriginal: numeroOriginal,
+    tipo: "editarOperacion", usuario: usuarioActivo, esCompra: esCompra, numeroOperacionOriginal: numeroOriginal,
     numeroOperacion: document.getElementById('ed_numero').value.trim(),
     fecha: document.getElementById('ed_fecha').value.trim(),
     empresa: document.getElementById('ed_empresa').value,
     archivoOrdenCompra, archivoFactura, archivoRecibo, archivoMetodoPago, archivoRemito
   };
-
   try{
     const r = await enviarBackend(payload);
     mostrarMensaje('mensajeEdicion', r.exito ? 'exito':'fallo', (r.exito?'✓ ':'✗ ') + r.mensaje);
-    if(r.exito){ cargarListaCompras(); cargarListaVentas(); cargarActividad(); }
+    if(r.exito){ cargarListaCompras(); cargarListaVentas(); cargarActividad(); cargarNotificaciones(); }
   }catch(err){ mostrarMensaje('mensajeEdicion','fallo','✗ Error: '+err.toString()); }
 }
 
 async function anularOperacionWeb(numero, esCompra){
   if(!confirm("¿Seguro que querés anular y borrar esta operación del Excel? Esta acción no se puede deshacer.")) return;
-
   const payload = { tipo: "anularOperacion", usuario: usuarioActivo, numeroOperacion: numero, esCompra: esCompra };
   try{
     const r = await enviarBackend(payload);
     if(r.exito){
       document.getElementById('resultadoBusqueda').innerHTML = `<div class="mensaje exito">✓ ${r.mensaje}</div>`;
-      cargarListaCompras(); cargarListaVentas(); cargarActividad();
+      cargarListaCompras(); cargarListaVentas(); cargarActividad(); cargarNotificaciones();
     } else {
       document.getElementById('resultadoBusqueda').innerHTML += `<div class="mensaje fallo">✗ ${r.mensaje}</div>`;
     }
@@ -1134,18 +1053,15 @@ async function anularOperacionWeb(numero, esCompra){
 // ---------- DEUDAS ----------
 async function guardarDeuda(){
   const payload = {
-    tipo: "deuda", usuario: usuarioActivo,
-    empresa: document.getElementById('d_empresa').value,
-    tipoDeuda: document.getElementById('d_tipo').value,
-    importe: document.getElementById('d_importe').value,
-    vencimiento: formatearFechaArg(document.getElementById('d_vencimiento').value),
-    detalle: document.getElementById('d_detalle').value
+    tipo: "deuda", usuario: usuarioActivo, empresa: document.getElementById('d_empresa').value,
+    tipoDeuda: document.getElementById('d_tipo').value, importe: document.getElementById('d_importe').value,
+    vencimiento: formatearFechaArg(document.getElementById('d_vencimiento').value), detalle: document.getElementById('d_detalle').value
   };
   mostrarMensaje('mensajeDeudas','cargando','Guardando...');
   try{
     const r = await enviarBackend(payload);
     mostrarMensaje('mensajeDeudas', r.exito ? 'exito':'fallo', (r.exito?'✓ ':'✗ ')+r.mensaje);
-    if(r.exito){ cargarListaDeudas(); cargarActividad(); }
+    if(r.exito){ cargarListaDeudas(); cargarActividad(); cargarNotificaciones(); cargarVencimientos(); cargarResumenHome(); }
   }catch(err){ mostrarMensaje('mensajeDeudas','fallo','✗ Error: '+err.toString()); }
 }
 
@@ -1157,15 +1073,11 @@ async function cargarListaDeudas(){
     if(!Array.isArray(datos) || datos.length === 0){ cont.innerHTML = '<div class="vacio">No hay deudas registradas.</div>'; return; }
     let html = `<table class="tabla-lista"><thead><tr><th>Empresa</th><th>Tipo</th><th>Importe</th><th>Vencimiento</th><th>Estado</th><th>Detalle</th></tr></thead><tbody>`;
     datos.forEach(d => {
-      html += `<tr>
-        <td>${escaparHtml(d.empresa)}</td><td>${escaparHtml(d.tipo)}</td>
-        <td>$${escaparHtml(d.importe)}</td><td>${escaparHtml(d.vencimiento)}</td>
-        <td><span class="etiqueta-estado estado-pendiente">${escaparHtml(d.estado)}</span></td>
-        <td>${escaparHtml(d.detalle)}</td>
-      </tr>`;
+      html += `<tr><td>${escaparHtml(d.empresa)}</td><td>${escaparHtml(d.tipo)}</td><td>$${escaparHtml(d.importe)}</td>
+        <td>${escaparHtml(d.vencimiento)}</td><td><span class="etiqueta-estado estado-pendiente">${escaparHtml(d.estado)}</span></td>
+        <td>${escaparHtml(d.detalle)}</td></tr>`;
     });
-    html += `</tbody></table>`;
-    cont.innerHTML = html;
+    cont.innerHTML = html + `</tbody></table>`;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
 }
 
@@ -1176,7 +1088,7 @@ async function guardarPendiente(){
   try{
     const r = await enviarBackend(payload);
     mostrarMensaje('mensajePendientes', r.exito ? 'exito':'fallo', (r.exito?'✓ ':'✗ ')+r.mensaje);
-    if(r.exito){ document.getElementById('p_tarea').value=''; cargarListaPendientes(); cargarActividad(); }
+    if(r.exito){ document.getElementById('p_tarea').value=''; cargarListaPendientes(); cargarActividad(); cargarNotificaciones(); cargarResumenHome(); }
   }catch(err){ mostrarMensaje('mensajePendientes','fallo','✗ Error: '+err.toString()); }
 }
 
@@ -1189,21 +1101,16 @@ async function cargarListaPendientes(){
     let html = `<table class="tabla-lista"><thead><tr><th>Tarea</th><th>Usuario</th><th>Estado</th><th></th></tr></thead><tbody>`;
     datos.forEach(p => {
       const esHecho = p.estado === 'Hecho';
-      html += `<tr>
-        <td>${escaparHtml(p.tarea)}</td><td>${escaparHtml(p.usuario)}</td>
+      html += `<tr><td>${escaparHtml(p.tarea)}</td><td>${escaparHtml(p.usuario)}</td>
         <td><span class="etiqueta-estado ${esHecho?'estado-hecho':'estado-pendiente'}">${escaparHtml(p.estado)}</span></td>
-        <td>${esHecho ? '' : `<button class="boton-chico" onclick="marcarPendiente(${p.fila})">Marcar hecho</button>`}</td>
-      </tr>`;
+        <td>${esHecho ? '' : `<button class="boton-chico" onclick="marcarPendiente(${p.fila})">Marcar hecho</button>`}</td></tr>`;
     });
-    html += `</tbody></table>`;
-    cont.innerHTML = html;
+    cont.innerHTML = html + `</tbody></table>`;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
 }
-
 async function marcarPendiente(fila){
   await enviarBackend({ tipo: "marcarPendienteHecho", fila, usuario: usuarioActivo });
-  cargarListaPendientes();
-  cargarActividad();
+  cargarListaPendientes(); cargarActividad(); cargarResumenHome();
 }
 
 // ---------- ERRORES ----------
@@ -1213,7 +1120,7 @@ async function guardarError(){
   try{
     const r = await enviarBackend(payload);
     mostrarMensaje('mensajeErrores', r.exito ? 'exito':'fallo', (r.exito?'✓ ':'✗ ')+r.mensaje);
-    if(r.exito){ document.getElementById('e_descripcion').value=''; cargarListaErrores(); cargarActividad(); }
+    if(r.exito){ document.getElementById('e_descripcion').value=''; cargarListaErrores(); cargarActividad(); cargarNotificaciones(); cargarResumenHome(); }
   }catch(err){ mostrarMensaje('mensajeErrores','fallo','✗ Error: '+err.toString()); }
 }
 
@@ -1226,21 +1133,16 @@ async function cargarListaErrores(){
     let html = `<table class="tabla-lista"><thead><tr><th>Descripción</th><th>Módulo</th><th>Usuario</th><th>Estado</th><th></th></tr></thead><tbody>`;
     datos.forEach(e => {
       const resuelto = e.estado === 'Resuelto';
-      html += `<tr>
-        <td>${escaparHtml(e.descripcion)}</td><td>${escaparHtml(e.modulo)}</td><td>${escaparHtml(e.usuario)}</td>
+      html += `<tr><td>${escaparHtml(e.descripcion)}</td><td>${escaparHtml(e.modulo)}</td><td>${escaparHtml(e.usuario)}</td>
         <td><span class="etiqueta-estado ${resuelto?'estado-hecho':'estado-pendiente'}">${escaparHtml(e.estado)}</span></td>
-        <td>${resuelto ? '' : `<button class="boton-chico" onclick="marcarError(${e.fila})">Marcar resuelto</button>`}</td>
-      </tr>`;
+        <td>${resuelto ? '' : `<button class="boton-chico" onclick="marcarError(${e.fila})">Marcar resuelto</button>`}</td></tr>`;
     });
-    html += `</tbody></table>`;
-    cont.innerHTML = html;
+    cont.innerHTML = html + `</tbody></table>`;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
 }
-
 async function marcarError(fila){
   await enviarBackend({ tipo: "marcarErrorResuelto", fila, usuario: usuarioActivo });
-  cargarListaErrores();
-  cargarActividad();
+  cargarListaErrores(); cargarActividad(); cargarResumenHome();
 }
 
 // ---------- ACTIVIDAD RECIENTE ----------
@@ -1253,15 +1155,73 @@ async function cargarActividad(){
     let html = '';
     datos.forEach(a => {
       const fecha = a.fechaHora ? new Date(a.fechaHora).toLocaleString('es-AR') : '';
-      html += `<div class="item-actividad">
-        <span class="quien">${escaparHtml(a.usuario)}</span> — ${escaparHtml(a.accion)}
-        ${a.numeroOperacion ? '(' + escaparHtml(a.numeroOperacion) + ')' : ''}
-        ${a.detalle ? '· ' + escaparHtml(a.detalle) : ''}
-        <div class="cuando">${fecha}</div>
+      html += `<div class="item-actividad"><span class="quien">${escaparHtml(a.usuario)}</span> — ${escaparHtml(a.accion)}
+        ${a.numeroOperacion ? '(' + escaparHtml(a.numeroOperacion) + ')' : ''} ${a.detalle ? '· ' + escaparHtml(a.detalle) : ''}
+        <div class="cuando">${fecha}</div></div>`;
+    });
+    cont.innerHTML = html;
+  }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
+}
+
+// ---------- RESUMEN HOME ----------
+async function cargarResumenHome(){
+  try{
+    const [pendientes, errores, deudas] = await Promise.all([
+      consultarBackend({ accion: "listarPendientes" }),
+      consultarBackend({ accion: "listarErrores" }),
+      consultarBackend({ accion: "listarDeudas" })
+    ]);
+    document.getElementById('resumenPendientes').textContent = Array.isArray(pendientes) ? pendientes.filter(p => p.estado !== 'Hecho').length : 0;
+    document.getElementById('resumenErrores').textContent = Array.isArray(errores) ? errores.filter(e => e.estado !== 'Resuelto').length : 0;
+    document.getElementById('resumenDeudas').textContent = Array.isArray(deudas) ? deudas.filter(d => d.estado !== 'Pagado').length : 0;
+  }catch(err){}
+}
+
+// ---------- VENCIMIENTOS PRÓXIMOS ----------
+async function cargarVencimientos(){
+  const cont = document.getElementById('listaVencimientos');
+  cont.innerHTML = 'Cargando...';
+  try{
+    const datos = await consultarBackend({ accion: "vencimientos" });
+    if(!Array.isArray(datos) || datos.length === 0){ cont.innerHTML = '<div class="vacio">No hay vencimientos cargados.</div>'; return; }
+    let html = '';
+    datos.forEach(v => {
+      let textoDias;
+      if(v.dias < 0) textoDias = `Vencido hace ${Math.abs(v.dias)} día(s)`;
+      else if(v.dias === 0) textoDias = `Vence hoy`;
+      else textoDias = `Vence en ${v.dias} día(s)`;
+      html += `<div class="fila-vencimiento ${v.color}">
+        <span>${escaparHtml(v.empresa)} · ${escaparHtml(v.tipo)} · $${escaparHtml(v.importe)} · ${escaparHtml(v.vencimiento)}</span>
+        <span class="dias-restantes">${textoDias}</span>
       </div>`;
     });
     cont.innerHTML = html;
   }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
+}
+
+// ---------- FRASE DEL MOMENTO ----------
+function mostrarFraseDelMomento(){
+  const hora = new Date().getHours();
+  let bloque;
+  if(hora >= 8 && hora < 12) bloque = 'manana';
+  else if(hora >= 12 && hora < 16) bloque = 'mediodia';
+  else if(hora >= 16 && hora < 20) bloque = 'tarde';
+  else bloque = 'noche';
+  const frases = FRASES_POR_HORA[bloque];
+  const frase = frases[Math.floor(Math.random() * frases.length)];
+  document.getElementById('fraseDelMomento').textContent = frase;
+}
+
+// ---------- DATOS EMPRESAS ----------
+function cargarDatosEmpresas(){
+  const cuerpo = document.getElementById('cuerpoTablaEmpresas');
+  let html = '';
+  DATOS_EMPRESAS.forEach(emp => {
+    html += `<tr><td><strong>${escaparHtml(emp.empresa)}</strong></td><td>${escaparHtml(emp.iva)}</td>
+      <td>${escaparHtml(emp.direccion)}</td><td>${escaparHtml(emp.cuit)}</td><td>${escaparHtml(emp.mail)}</td>
+      <td><a href="${escaparHtml(emp.catalogo)}" target="_blank">Ver catálogo</a></td><td>${escaparHtml(emp.cuentaBanco)}</td></tr>`;
+  });
+  cuerpo.innerHTML = html;
 }
 
 // ---------- CONTACTAR EMPRESA ----------
@@ -1272,24 +1232,197 @@ function cargarContactos(){
     const mail = CORREOS_EMPRESAS[empresa];
     const asunto = encodeURIComponent("Arómata S.A. — Operación comercial");
     const urlGmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mail)}&su=${asunto}`;
-    html += `<div class="caja-empresa-mail">
-      <div><strong>${escaparHtml(empresa)}</strong><br><small class="ayuda">${escaparHtml(mail)}</small></div>
-      <a href="${urlGmail}" target="_blank"><button class="boton-chico">Escribir mail</button></a>
-    </div>`;
+    html += `<div class="caja-empresa-mail"><div><strong>${escaparHtml(empresa)}</strong><br><small class="ayuda">${escaparHtml(mail)}</small></div>
+      <a href="${urlGmail}" target="_blank"><button class="boton-chico">Escribir mail</button></a></div>`;
   });
   cont.innerHTML = html;
 }
 
+// ---------- CENTRO DE DOCUMENTOS ----------
+async function cargarDocumentos(){
+  const cont = document.getElementById('listaDocumentos');
+  cont.innerHTML = 'Cargando...';
+  try{
+    documentosCache = await consultarBackend({ accion: "documentos" });
+    aplicarFiltrosDocumentos();
+  }catch(err){ cont.innerHTML = '<div class="vacio">Error al cargar.</div>'; }
+}
+
+function aplicarFiltrosDocumentos(){
+  const cont = document.getElementById('listaDocumentos');
+  const empresa = document.getElementById('doc_empresa').value;
+  const tipo = document.getElementById('doc_tipo').value;
+  const origen = document.getElementById('doc_origen').value;
+  const texto = document.getElementById('doc_texto').value.trim().toLowerCase();
+
+  let filtrados = documentosCache.filter(d => {
+    if(empresa && d.empresa !== empresa) return false;
+    if(tipo && d.tipo !== tipo) return false;
+    if(origen === 'compra' && !d.esCompra) return false;
+    if(origen === 'venta' && d.esCompra) return false;
+    if(texto && !d.operacion.toString().toLowerCase().includes(texto)) return false;
+    return true;
+  });
+
+  if(filtrados.length === 0){ cont.innerHTML = '<div class="vacio">No hay documentos con esos filtros.</div>'; return; }
+
+  let html = `<table class="tabla-lista"><thead><tr><th>Nombre</th><th>Empresa</th><th>Tipo</th><th>Fecha</th><th>Operación</th><th>Origen</th><th></th></tr></thead><tbody>`;
+  filtrados.forEach(d => {
+    html += `<tr><td>${escaparHtml(d.nombre)}</td><td>${escaparHtml(d.empresa)}</td><td>${escaparHtml(d.tipo)}</td>
+      <td>${escaparHtml(d.fecha)}</td><td>${escaparHtml(d.operacion)}</td><td>${d.esCompra?'Compra':'Venta'}</td>
+      <td><a href="${escaparHtml(d.url)}" target="_blank"><button class="boton-chico secundario">Abrir</button></a></td></tr>`;
+  });
+  cont.innerHTML = html + `</tbody></table>`;
+}
+
+// ---------- GENERADOR DE CORREOS ----------
+function generarCorreo(){
+  const empresa = document.getElementById('co_empresa').value;
+  const tipo = document.getElementById('co_tipo').value;
+
+  const plantillas = {
+    reclamo: {
+      asunto: `Arómata S.A. — Recordatorio de deuda pendiente`,
+      cuerpo: `Estimados ${empresa},\n\nNos comunicamos para recordarles que tienen una deuda pendiente con Arómata S.A.\n\nLes agradeceríamos confirmar la fecha estimada de pago.\n\nQuedamos a disposición para cualquier consulta.\n\nSaludos cordiales,\nArómata S.A.`
+    },
+    confirmacion: {
+      asunto: `Arómata S.A. — Confirmación de pago recibido`,
+      cuerpo: `Estimados ${empresa},\n\nLes confirmamos que hemos recibido el pago correspondiente a la operación acordada.\n\nMuchas gracias por su gestión.\n\nSaludos cordiales,\nArómata S.A.`
+    },
+    documentacion: {
+      asunto: `Arómata S.A. — Solicitud de documentación`,
+      cuerpo: `Estimados ${empresa},\n\nNecesitamos que nos envíen la documentación pendiente correspondiente a nuestra última operación (factura, remito y/o método de pago).\n\nQuedamos atentos a su respuesta.\n\nSaludos cordiales,\nArómata S.A.`
+    },
+    consulta: {
+      asunto: `Arómata S.A. — Consulta comercial`,
+      cuerpo: `Estimados ${empresa},\n\nNos comunicamos para realizar una consulta comercial. Quedamos atentos a su respuesta a la brevedad.\n\nSaludos cordiales,\nArómata S.A.`
+    },
+    vencimiento: {
+      asunto: `Arómata S.A. — Recordatorio de vencimiento próximo`,
+      cuerpo: `Estimados ${empresa},\n\nLes recordamos que se aproxima la fecha de vencimiento de una operación pendiente entre nuestras empresas.\n\nAgradecemos tengan en cuenta este recordatorio.\n\nSaludos cordiales,\nArómata S.A.`
+    }
+  };
+
+  const plantilla = plantillas[tipo];
+  document.getElementById('co_asunto').value = plantilla.asunto;
+  document.getElementById('co_cuerpo').value = plantilla.cuerpo;
+}
+
+function enviarCorreoGenerado(){
+  const empresa = document.getElementById('co_empresa').value;
+  const mail = CORREOS_EMPRESAS[empresa];
+  const asunto = encodeURIComponent(document.getElementById('co_asunto').value);
+  const cuerpo = encodeURIComponent(document.getElementById('co_cuerpo').value);
+  const urlGmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mail)}&su=${asunto}&body=${cuerpo}`;
+  window.open(urlGmail, '_blank');
+}
+
+// ---------- BUSCADOR GLOBAL ----------
+function buscarGlobal(){
+  clearTimeout(timeoutBusquedaGlobal);
+  const texto = document.getElementById('inputBusquedaGlobal').value.trim();
+  const cont = document.getElementById('resultadosBusquedaGlobal');
+  if(!texto){ cont.style.display = 'none'; return; }
+
+  timeoutBusquedaGlobal = setTimeout(async () => {
+    try{
+      const r = await consultarBackend({ accion: "busquedaGlobal", texto });
+      let html = '';
+      const grupos = [
+        { titulo: 'Compras', items: r.compras, render: x => `${x.numeroOperacion} — ${x.empresa}`, ir: 'compras' },
+        { titulo: 'Ventas', items: r.ventas, render: x => `${x.numeroOperacion} — ${x.empresa}`, ir: 'ventas' },
+        { titulo: 'Deudas', items: r.deudas, render: x => `${x.empresa} — ${x.tipo} — $${x.importe}`, ir: 'deudas' },
+        { titulo: 'Pendientes', items: r.pendientes, render: x => x.tarea, ir: 'pendientes' },
+        { titulo: 'Errores', items: r.errores, render: x => x.descripcion, ir: 'errores' }
+      ];
+      grupos.forEach(g => {
+        if(g.items && g.items.length > 0){
+          html += `<div class="grupo-resultado"><h4>${g.titulo}</h4>`;
+          g.items.forEach(item => {
+            html += `<div class="item-resultado" onclick="irATab('${g.ir}'); document.getElementById('resultadosBusquedaGlobal').style.display='none'; document.getElementById('inputBusquedaGlobal').value='';">${escaparHtml(g.render(item))}</div>`;
+          });
+          html += `</div>`;
+        }
+      });
+      if(!html) html = '<div class="grupo-resultado vacio">Sin resultados.</div>';
+      cont.innerHTML = html;
+      cont.style.display = 'block';
+    }catch(err){}
+  }, 350);
+}
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.buscador-global-cont')) {
+    const cont = document.getElementById('resultadosBusquedaGlobal');
+    if(cont) cont.style.display = 'none';
+  }
+});
+
+// ---------- NOTIFICACIONES ----------
+async function cargarNotificaciones(){
+  try{
+    const datos = await consultarBackend({ accion: "listarNotificaciones" });
+    const noLeidas = Array.isArray(datos) ? datos.filter(n => n.leida !== 'Sí').length : 0;
+    const badge = document.getElementById('badgeNotif');
+    if(noLeidas > 0){ badge.style.display = 'flex'; badge.textContent = noLeidas > 99 ? '99+' : noLeidas; }
+    else { badge.style.display = 'none'; }
+
+    const cont = document.getElementById('listaNotificaciones');
+    if(!Array.isArray(datos) || datos.length === 0){ cont.innerHTML = '<div class="vacio" style="padding:14px;">Sin notificaciones.</div>'; return; }
+    let html = '';
+    datos.slice(0, 30).forEach(n => {
+      const fecha = n.fechaHora ? new Date(n.fechaHora).toLocaleString('es-AR') : '';
+      html += `<div class="item-notificacion ${n.leida !== 'Sí' ? 'no-leida' : ''}" onclick="marcarNotifLeida(${n.fila})">
+        <strong>${escaparHtml(n.usuario)}</strong> — ${escaparHtml(n.mensaje)}
+        <div class="cuando">${fecha}</div>
+      </div>`;
+    });
+    cont.innerHTML = html;
+  }catch(err){}
+}
+function toggleNotificaciones(){
+  const panel = document.getElementById('panelNotificaciones');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  if(panel.style.display === 'block') cargarNotificaciones();
+}
+async function marcarNotifLeida(fila){
+  await enviarBackend({ tipo: "marcarNotificacionLeida", fila });
+  cargarNotificaciones();
+}
+async function marcarTodasLeidas(){
+  await enviarBackend({ tipo: "marcarTodasNotificacionesLeidas" });
+  cargarNotificaciones();
+}
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('panelNotificaciones');
+  if(panel && panel.style.display === 'block' && !e.target.closest('.panel-notificaciones') && !e.target.closest('.boton-icono')){
+    panel.style.display = 'none';
+  }
+});
+
+// ---------- RELOJ ----------
+function actualizarReloj(){
+  const ahora = new Date();
+  document.getElementById('homeDia').textContent = ahora.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('homeHora').textContent = ahora.toLocaleTimeString('es-AR');
+}
+setInterval(actualizarReloj, 1000);
+
 // ---------- CARGA INICIAL ----------
 function cargarTodo(){
+  actualizarReloj();
   cargarActividad();
   cargarResumenHome();
+  cargarVencimientos();
+  mostrarFraseDelMomento();
   cargarListaCompras();
   cargarListaVentas();
   cargarListaDeudas();
   cargarListaPendientes();
   cargarListaErrores();
   cargarDatosEmpresas();
+  cargarNotificaciones();
+  actualizarProgreso('compras');
+  actualizarProgreso('ventas');
 }
 </script>
 </body>
